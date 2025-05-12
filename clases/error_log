@@ -1,0 +1,140 @@
+[08-May-2025 14:36:07 America/Bogota] PHP Notice:  Use of undefined constant SERVIDOR - assumed 'SERVIDOR' in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:36:07 America/Bogota] PHP Warning:  include_once(SERVIDOR/clases/DAO/DAO_Contactenos.php): failed to open stream: No such file or directory in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:36:07 America/Bogota] PHP Warning:  include_once(): Failed opening 'SERVIDOR/clases/DAO/DAO_Contactenos.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:36:07 America/Bogota] PHP Fatal error:  Class 'DAO_Contactenos' not found in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 43
+[08-May-2025 14:42:18 America/Bogota] PHP Deprecated:  mysql_insert_id(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/gssvinge/public_html/agencia/clases/DAO/class.DAO.php on line 94
+[08-May-2025 14:42:18 America/Bogota] PHP Warning:  mysql_insert_id(): Access denied for user 'gssvinge'@'localhost' (using password: NO) in /home/gssvinge/public_html/agencia/clases/DAO/class.DAO.php on line 94
+[08-May-2025 14:42:18 America/Bogota] PHP Warning:  mysql_insert_id(): A link to the server could not be established in /home/gssvinge/public_html/agencia/clases/DAO/class.DAO.php on line 94
+[08-May-2025 14:42:44 America/Bogota] PHP Notice:  Use of undefined constant SERVIDOR - assumed 'SERVIDOR' in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:44 America/Bogota] PHP Warning:  include_once(SERVIDOR/clases/DAO/DAO_Contactenos.php): failed to open stream: No such file or directory in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:44 America/Bogota] PHP Warning:  include_once(): Failed opening 'SERVIDOR/clases/DAO/DAO_Contactenos.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:44 America/Bogota] PHP Fatal error:  Class 'DAO_Contactenos' not found in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 43
+[08-May-2025 14:42:46 America/Bogota] PHP Notice:  Use of undefined constant SERVIDOR - assumed 'SERVIDOR' in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:46 America/Bogota] PHP Warning:  include_once(SERVIDOR/clases/DAO/DAO_Contactenos.php): failed to open stream: No such file or directory in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:46 America/Bogota] PHP Warning:  include_once(): Failed opening 'SERVIDOR/clases/DAO/DAO_Contactenos.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:46 America/Bogota] PHP Fatal error:  Class 'DAO_Contactenos' not found in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 43
+[08-May-2025 14:42:47 America/Bogota] PHP Notice:  Use of undefined constant SERVIDOR - assumed 'SERVIDOR' in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:47 America/Bogota] PHP Warning:  include_once(SERVIDOR/clases/DAO/DAO_Contactenos.php): failed to open stream: No such file or directory in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:47 America/Bogota] PHP Warning:  include_once(): Failed opening 'SERVIDOR/clases/DAO/DAO_Contactenos.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:42:47 America/Bogota] PHP Fatal error:  Class 'DAO_Contactenos' not found in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 43
+[08-May-2025 14:48:53 America/Bogota] PHP Notice:  Use of undefined constant SERVIDOR - assumed 'SERVIDOR' in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:48:53 America/Bogota] PHP Warning:  include_once(SERVIDOR/clases/DAO/DAO_Contactenos.php): failed to open stream: No such file or directory in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:48:53 America/Bogota] PHP Warning:  include_once(): Failed opening 'SERVIDOR/clases/DAO/DAO_Contactenos.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 14:48:53 America/Bogota] PHP Fatal error:  Class 'DAO_Contactenos' not found in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 43
+[08-May-2025 15:05:11 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:05:11 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:05:11 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:05:11 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:05:11 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:05:11 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:05:11 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:06:07 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:24:56 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:24:56 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:24:56 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:24:56 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:24:56 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:25:14 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:31:27 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:28 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:28 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:28 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:28 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:28 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:28 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:28 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:42 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:42 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:42 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:42 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:42 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:42 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:40:42 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:41:32 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:41:32 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:41:32 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:41:32 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:41:32 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:41:32 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:41:32 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:43:13 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[08-May-2025 15:50:16 America/Bogota] PHP Notice:  Use of undefined constant SERVIDOR - assumed 'SERVIDOR' in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 15:50:16 America/Bogota] PHP Warning:  include_once(SERVIDOR/clases/DAO/DAO_Contactenos.php): failed to open stream: No such file or directory in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 15:50:16 America/Bogota] PHP Warning:  include_once(): Failed opening 'SERVIDOR/clases/DAO/DAO_Contactenos.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 40
+[08-May-2025 15:50:16 America/Bogota] PHP Fatal error:  Class 'DAO_Contactenos' not found in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 43
+[09-May-2025 10:45:38 America/Bogota] PHP Deprecated:  mysql_insert_id(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/gssvinge/public_html/agencia/clases/DAO/class.DAO.php on line 94
+[09-May-2025 10:45:38 America/Bogota] PHP Warning:  mysql_insert_id(): Access denied for user 'gssvinge'@'localhost' (using password: NO) in /home/gssvinge/public_html/agencia/clases/DAO/class.DAO.php on line 94
+[09-May-2025 10:45:38 America/Bogota] PHP Warning:  mysql_insert_id(): A link to the server could not be established in /home/gssvinge/public_html/agencia/clases/DAO/class.DAO.php on line 94
+[09-May-2025 11:29:09 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:09 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:09 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:09 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:09 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:09 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:09 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:26 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:26 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:26 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:26 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:26 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:26 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:26 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:47 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:47 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:47 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:47 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:47 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:47 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:29:47 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:30:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:30:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:30:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:30:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:30:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:30:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
+[09-May-2025 11:30:34 America/Bogota] PHP Strict Standards:  Only variables should be passed by reference in /home/gssvinge/public_html/agencia/clases/class.procesarFormulario.php on line 14
