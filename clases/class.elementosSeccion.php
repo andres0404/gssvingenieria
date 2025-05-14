@@ -142,6 +142,44 @@ class Elementos {
             if(empty($id)){
                 continue;
             }
+            $func_imagen = function () use ($_objComp){
+                $html = '';
+                $indicators = '';
+                $slides = '';
+                $id_carousel = 'carousel-example-generic-' . $_objComp->get_id_comp_e();
+                if(is_array($_objComp->get_comp_img())){
+                    $img = $_objComp->get_comp_img();
+                    $countImg = count($img);
+                    if($countImg > 1){
+                        $slides .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;">';
+                        for($i = 0; $i < count($img) ; $i++){
+                            $indicators .= ('<li style="border-color:black;" data-target="#' .$id_carousel. '" data-slide-to="'.$i.'" ' . ($i == 0 ? 'class="active"' : '') .'></li>');
+                            $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'">
+                            <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="">
+                            <div class="carousel-caption"></div>
+                            </div>';
+                        }
+                        $slides .= '</div>';
+                        $html .= '<div id="' .$id_carousel. '" class="carousel slide" data-ride="carousel">';
+                        $html .= ('<ol class="carousel-indicators">'.$indicators.'</ol>');
+                        $html .= '<div class="carousel-inner" role="listbox">';
+                        $html .= $slides;
+                        $html .= '</div>';
+                        $html .= '<a class="left carousel-control" style="width:10%;border-radius: 5px;opacity:.2" href="#' .$id_carousel. '" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" style="width:10%;border-radius: 5px;opacity:.2" href="#' .$id_carousel. '" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>';
+                        $html .= '</div>';
+                    } else {
+                        $html .= '<img class="img-responsive img-centered" src="'.$this->_seccion->get_img_path().$img[0].'" alt="">';
+                    }
+                }
+                return $html;
+            };
             $arrHtml[] = '<div class="portfolio-modal modal fade" id="portfolioModal'.($i+1).'" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-content">
                 <div class="close-modal" data-dismiss="modal">
@@ -157,8 +195,7 @@ class Elementos {
                                 <!-- Project Details Go Here -->
                                 <h2>'.$arrObj[$i]->get_titulo().'</h2>
                                 <p class="item-intro text-muted">'.$_objComp->get_comp_subtitulo().'</p>
-                                <img class="img-responsive img-centered" src="'.$this->_seccion->get_img_path().$_objComp->get_comp_img().'" alt="">
-                                '.$_objComp->get_comp_texto().'
+                                '.$func_imagen().$_objComp->get_comp_texto().'
                                 <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                             </div>
                         </div>

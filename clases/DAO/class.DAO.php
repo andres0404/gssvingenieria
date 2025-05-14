@@ -82,7 +82,13 @@ class DAOGeneral {
         //for ($i = 0; $i < count($this->_mapa); $i++) {
         foreach($this->_mapa as $nom_campo => $arrAtributos){    
             if ($this->{'_' . $nom_campo} !== null AND $nom_campo != $this->_primario && !isset($arrAtributos['sql'])) {
-                $set[] = $nom_campo . " = '" . addslashes($this->{'_' . $nom_campo} ). "'";
+                switch($arrAtributos['tipodato']){
+                    case 'lista-multiple-imagen':
+                        $set[] = $nom_campo . " = json_array('" . implode("','",$this->{'_' . $nom_campo} ) . "')";
+                        break;
+                    default:
+                        $set[] = $nom_campo . " = '" . addslashes($this->{'_' . $nom_campo} ). "'";
+                }
             }
         }
         $where = "";
@@ -156,7 +162,13 @@ class DAOGeneral {
     }
     private function _fillRow($obj, $res){
         foreach($this->_mapa as $nom_campo => $arrAtributos){
-            $obj->{'set_'.$nom_campo}($res[$nom_campo]);
+            switch($arrAtributos['tipodato']){
+                case 'lista-multiple-imagen':
+                    $obj->{'set_'.$nom_campo}(json_decode($res[$nom_campo]));
+                    break;
+                default:
+                    $obj->{'set_'.$nom_campo}($res[$nom_campo]);
+            }
         }
         return $obj;
     }

@@ -1,7 +1,6 @@
 <?php
 /// Pago electrónico PAGOSONLINE - 724259221 realizado con éxito, con número de autorización 52526313.
 include_once 'class.DAO.php'; 
-include_once 'DAO_ComplementoelementoImagenes.php';
 
 class DAO_ComplementoElemento extends DAOGeneral {
     
@@ -49,16 +48,6 @@ class DAO_ComplementoElemento extends DAOGeneral {
     }
 
     function get_comp_img() {
-        $objElemImg = new DAO_ComplementoelementoImagenes();
-        $objElemImg->set_id_comp_e($this->get_id_comp_e());
-        $_comp_img = $objElemImg->consultar();
-        if(is_array($_comp_img)){
-            $t = count($_comp_img);
-            for($i = 0; $i < $t; $i++){
-                $_comp_img[$i] = $_comp_img[$i]->get_img();
-            }
-            $this->_comp_img = $_comp_img;
-        }
         return $this->_comp_img;
     }
 

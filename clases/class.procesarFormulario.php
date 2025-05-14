@@ -2,16 +2,16 @@
 
 //print_r($_POST);
 if(isset($_POST['form_clase']) && !empty($_POST['form_clase'])){
-    include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/ruta.php';
-    include_once SERVIDOR.'/clases/DAO/DAO_Secciones.php';
-    include_once SERVIDOR.'/clases/DAO/DAO_elementos.php';
-    include_once SERVIDOR.'/clases/DAO/DAO_ComplementoElemento.php';
-    include_once SERVIDOR.'/clases/DAO/DAO_General.php';
+    include_once __DIR__.'/DAO/DAO_Secciones.php';
+    include_once __DIR__.'/DAO/DAO_elementos.php';
+    include_once __DIR__.'/DAO/DAO_ComplementoElemento.php';
+    include_once __DIR__.'/DAO/DAO_General.php';
     // preparar campos de formulario
     $data = array();
     foreach($_POST as $key => $valor){
         if($key != 'form_clase'){
-            $campo = end(explode("|", $key));
+            $arrCampo = explode("|", $key);
+            $campo = end($arrCampo);
             $data[$campo] = $valor;
         }
     }

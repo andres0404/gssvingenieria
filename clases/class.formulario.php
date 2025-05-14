@@ -196,7 +196,7 @@ class GenerarFormulario {
         //$javas .= 'alert(dataString);';
         $javas .= '$.ajax({
             type: "POST",
-            url: "/agencia/clases/class.procesarFormulario.php",
+            url: "/clases/class.procesarFormulario.php",
             data: dataString,
             success: function(data) {
                 //alert(data.ok + " " + data.mensaje );
