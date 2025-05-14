@@ -2,9 +2,9 @@
 //include_once 'clases/class.conexion.php';
 //print_r($_SERVER);
 //die(SERVIDOR.'/clases/class.seccion.php');
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/class.seccion.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/DAO/DAO_General.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/class.plantillas.php';
+include_once __DIR__ . '/clases/class.seccion.php';
+include_once __DIR__ . '/clases/DAO/DAO_General.php';
+include_once __DIR__ . '/clases/class.plantillas.php';
 /*
 include_once SERVIDOR.'/clases/class.seccion.php';
 include_once SERVIDOR.'/clases/DAO/DAO_General.php';
@@ -93,7 +93,8 @@ $dataMenu = $objMenu->getSecciones();
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <img src="img/logos/<?php echo $objGeneral->get_logo();?>" style="width: 5em" /> <?php //echo $objGeneral->get_nom_empresa();?></a>
+
+                    <img src="<?php echo $objGeneral->get_img_path().$objGeneral->get_logo();?>" style="width: 5em" /> <?php //echo $objGeneral->get_nom_empresa();?></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -174,9 +175,9 @@ $dataMenu = $objMenu->getSecciones();
     <!-- Portfolio Modals -->
     <!-- Use the modals below to showcase details about your portfolio projects! -->
     <?php
-    if($objPlantilla instanceof Plantillas){
-       // echo $objPlantilla->getModalPortafolio();
-    }
+    //if($objPlantilla instanceof Plantillas){
+    //   // echo $objPlantilla->getModalPortafolio();
+    //}
     ?>
    
     <script src="js/jquery.js"></script>

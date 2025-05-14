@@ -1,6 +1,6 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/DAO/DAO_Contactenos.php';
+include_once __DIR__.'/DAO/DAO_Contactenos.php';
 
 /**
  * Clase para crear elementos en la interfaz para interactuar con los mensajes de contacto
@@ -19,6 +19,7 @@ class Contactenos{
     public function consultarContactenosNoVistos(){
         $_objContacto = new DAO_Contactenos();
         $_objContacto->set_visto("0");
+        $_objContacto->setCustomWhere("fecha_envio > date_sub(curdate(), interval 1 month)");
         $this->_arrObjContacto = $_objContacto->consultar();
         $id = $_objContacto->get_id_contact();
         if(!is_array($this->_arrObjContacto) && !empty($id)){
@@ -46,7 +47,7 @@ class Contactenos{
                     if(VISTO == 1) return false;
                     $.ajax({
                 method: "POST",
-                url: "/agencia/clases/class.procesarFormulario.php",
+                url: "/clases/class.procesarFormulario.php",
                 data: { contacVisto: "1", mensajes: ['.  implode(",", $idMensaje).'] }
               })
                 .done(function( objP ) {

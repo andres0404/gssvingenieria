@@ -20,7 +20,7 @@ class Imagenes{
     private $_pathImg ;
     
     public function __construct() {
-        $this->_pathImg = $_SERVER['DOCUMENT_ROOT'].'/agencia/img/';
+        $this->_pathImg = __DIR__.'/../img/';
     }
     /**
      * Establecer la carpeta que se va a ver
@@ -119,7 +119,7 @@ class Imagenes{
                             $count = 1;
                             while( ($fil = readdir($idfil) ) !== false ){
                                 if($fil != "." && $fil != ".."){
-                                    $this->_lisArchivos[] = '<div id="cont_'.$count.'" style="display:inline-block"><img src="/agencia/img/'.$files.'/'.$fil.'" alt="['.$fil.']" style="width:140px;" class="img-thumbnail"><div><i class="fa fa-times" style="cursor:pointer;" title="Eliminar" onclick="'.$this->_jsFuncionesImg['eliminar'].'(\''.$files.'\',\''.$fil.'\','.$count.');" ></i> '.$fil.'</div></div>' ;
+                                    $this->_lisArchivos[] = '<div id="cont_'.$count.'" style="display:inline-block"><img src="/img/'.$files.'/'.$fil.'" alt="['.$fil.']" style="width:140px;" class="img-thumbnail"><div><i class="fa fa-times" style="cursor:pointer;" title="Eliminar" onclick="'.$this->_jsFuncionesImg['eliminar'].'(\''.$files.'\',\''.$fil.'\','.$count.');" ></i> '.$fil.'</div></div>' ;
                                     $count += 1;
                                 }
                             }

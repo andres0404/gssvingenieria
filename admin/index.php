@@ -8,7 +8,7 @@ if(isset($_GET['logout']) AND $_GET['logout'] == 1){
 }
 if(!isset($_SESSION['id_usu'])){
     //echo "fuck!";
-    header("location: /agencia/admin/login/index.php");
+    header("location: /admin/login/index.php");
     //echo "<a href='/agencia/'>Inicio</a> ";
     //exit();
 }
@@ -18,14 +18,14 @@ if(session_status() != PHP_SESSION_ACTIVE){
     header("Location: " . $_SERVER['DOCUMENT_ROOT']);
 }
 */
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/ruta.php';
-include_once SERVIDOR.'/clases/DAO/DAO_Usuarios.php';
-include_once SERVIDOR.'/clases/class.permisos.php';
-include_once SERVIDOR.'/clases/class.seccion.php';
-include_once SERVIDOR.'/clases/class.contactenos.php';
-include_once SERVIDOR.'/clases/DAO/DAO_Secciones.php';
-include_once SERVIDOR.'/clases/DAO/DAO_elementos.php';
-include_once SERVIDOR.'/clases/class.formulario.php';
+
+include_once __DIR__.'/../clases/DAO/DAO_Usuarios.php';
+include_once __DIR__.'/../clases/class.permisos.php';
+include_once __DIR__.'/../clases/class.seccion.php';
+include_once __DIR__.'/../clases/class.contactenos.php';
+include_once __DIR__.'/../clases/DAO/DAO_Secciones.php';
+include_once __DIR__.'/../clases/DAO/DAO_elementos.php';
+include_once __DIR__.'/../clases/class.formulario.php';
 
 // consultar provisionalmente
 $objUsuario = new DAO_Usuarios();
@@ -38,7 +38,7 @@ $permiso = $objUsuario->get_permiso();
 if(!( $permiso & Permisos::ADMIN) ){
     die("No tiene permisos de administrador");
 }
-include_once SERVIDOR.'/clases/DAO/DAO_General.php';
+include_once __DIR__.'/../clases/DAO/DAO_General.php';
 $objGeneral = new DAO_General();
 $objGeneral->set_id(1);
 $objGeneral->consultar();
@@ -265,7 +265,7 @@ $dataMenu = $objMenu->getSecciones();
                     </li>
                     <li>
                         <!--<a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>-->
-                        <a href="/agencia/" target="_blank"><i class="fa fa-fw fa-bicycle"></i> Visualizar P&aacute;gina</a>
+                        <a href="/" target="_blank"><i class="fa fa-fw fa-bicycle"></i> Visualizar P&aacute;gina</a>
                     </li>
                 </ul>
             </div>
@@ -357,7 +357,7 @@ $dataMenu = $objMenu->getSecciones();
                         <?php
                         }else{
                         ?>
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
                         <?php
                         $_objForm->setDAO($_objSeccion);
                         //$_objForm->conLabel();
@@ -365,7 +365,7 @@ $dataMenu = $objMenu->getSecciones();
                         //print_r($_objSeccion);
                         ?>
                         </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-9">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h3 class="panel-title" onclick="toogleElemento('#cont_ele_nuevo');" style="cursor: pointer;">Nuevo</h3>

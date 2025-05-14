@@ -1,8 +1,11 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/ruta.php';
-
+//include_once '../ruta.php';
+class ConexionSQLException extends Exception{}
 class ConexionSQL{
+    /**
+     * @return Conexiones
+     */
     private static $_conData;
     private static $_obj = null;
     
@@ -43,13 +46,19 @@ class ConexionSQL{
      */
     private function _conectar(){
         //print_r(self::$_conData);
-        if(!$this->_link = mysqli_connect(self::$_conData->getServer(), self::$_conData->getUsername(), self::$_conData->getPassword())){
-            throw new ConexionSQLException("No se pudo conectar. ".  mysqli_error($this->_link));
+        try {
+            $this->_link = new PDO("mysql:host=db;dbname=" . self::$_conData->getDatabase() .";charset=utf8mb4", self::$_conData->getUsername(), self::$_conData->getPassword());
+            $this->_link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch(PDOException $e){
+            throw new ConexionSQLException($e->getMessage());
         }
-        if(!mysqli_select_db($this->_link,self::$_conData->getDatabase())){
-            throw new ConexionSQLException("No se pudo seleccionar base de datos ".  mysqli_error($this->_link));
-        }
-        mysqli_set_charset($this->_link,'utf8');
+        // if(!$this->_link = mysqli_connect(self::$_conData->getServer(), self::$_conData->getUsername(), self::$_conData->getPassword())){
+        //     throw new ConexionSQLException("No se pudo conectar. ".  mysqli_error($this->_link));
+        // }
+        // if(!mysqli_select_db($this->_link,self::$_conData->getDatabase())){
+        //     throw new ConexionSQLException("No se pudo seleccionar base de datos ".  mysqli_error($this->_link));
+        // }
+        // mysqli_set_charset($this->_link,'utf8');
     }
     /**
      * 
@@ -57,8 +66,8 @@ class ConexionSQL{
      * @return type
      */
     public function consultar($query){
-        $result = mysqli_query($this->_link,$query);
-        return $result;
+        // $result = mysqli_query($this->_link,$query);
+        return $this->_link->query($query, PDO::FETCH_ASSOC);
     }
     /**
      * Obtener numero de filas de una consulta
@@ -76,12 +85,13 @@ class ConexionSQL{
     public function obenerFila($id) {
         
         if(!empty($id)){
-            return mysqli_fetch_array($id, MYSQL_ASSOC);
+            //return mysqli_fetch_array($id, MYSQL_ASSOC);
+            return $id->fetch();
         }
         return false;
     }
 }
-class ConexionSQLException extends Exception{}
+
 
 class Conexiones{
     

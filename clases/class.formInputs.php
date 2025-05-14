@@ -94,7 +94,7 @@ class FormInput{
      * @return string
      */
     public static function button($label, $tipoBoton = 1, $opciones = ''){
-        $type = $tipoBoton == 1 ? 'submit' : $tipoBoton == 2 ? 'button' : 'reset';
+        $type = $tipoBoton == 1 ? 'submit' : ($tipoBoton == 2 ? 'button' : 'reset');
         $html = '<button type="'.$type.'" class="btn btn-default" '.$opciones.' >'.$label.'</button>';
         return $html;
     }
@@ -147,6 +147,33 @@ class FormInput{
             $selected = '';
             if($valor == $valSeleccionado){
                 $selected = 'selected="selected"';
+            }
+            $html .= ('<option value="'.$valor.'" '.$selected.' >'.$label.'</option>');
+        }
+        $html .= '</select>';
+        $html .= self::_bloqueAyudaBajo($ayuda);
+        $html .= '</div>';
+        return $html;
+    }
+    /**
+     * Campo de seleccion
+     * @param type $nameValor
+     * @param type $idValor
+     * @param type $nombre
+     * @param type $valores
+     * @param string $valSeleccionado valor seleccionado en el campo
+     * @param type $chequeado
+     * @return string
+     */
+    public static function campoMultiSeleccion($nameValor, $nombre = '', $valores = [], $valSeleccionados = [], $ayuda = ''){
+        //print_r($valSeleccionados);
+        $html = '<div class="form-group">';
+        $html .= (empty($nombre) ? '' : ( '<label>'.$nombre.'</label>'));
+        $html .= ('<select class="form-control" name="'.$nameValor.'" id="'.$nameValor.'" multiple>');
+        foreach($valores as $valor => $label){
+            $selected = '';
+            if(is_array($valSeleccionados) && in_array($valor, $valSeleccionados)){
+                $selected = 'selected';
             }
             $html .= ('<option value="'.$valor.'" '.$selected.' >'.$label.'</option>');
         }

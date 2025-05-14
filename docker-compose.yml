@@ -1,0 +1,53 @@
+services:
+  apache:
+      image: httpd:2.4.63-alpine
+      container_name: apache_2_4
+      volumes:
+        - ./:/var/www/html
+        - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      ports:
+        - "8080:80"
+      depends_on:
+        - php
+      networks:
+        - appnet
+  php:
+    image: php:8.3.21-fpm-alpine3.20
+    container_name: php_fpm_8_3
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    expose:
+      - "9000"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=gssvinge_admin
+      - MYSQL_PASSWORD=Batman84
+      - MYSQL_DATABASE=gssvinge_gssv_ingenieria
+    networks:
+      - appnet
+    command: >
+      sh -c "docker-php-ext-install pdo pdo_mysql && php-fpm"
+  db:
+    image: mariadb:11.4.5-noble
+    container_name: mariadb_11_4
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=gssvinge_gssv_ingenieria
+      - MYSQL_USER=gssvinge_admin
+      - MYSQL_PASSWORD=Batman84
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - appnet
+
+volumes:
+  db_data:
+
+networks:
+  appnet:
+    driver: bridge

@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/DAO/DAO_General.php';
+include_once __DIR__.'/../../clases/DAO/DAO_General.php';
 $objGeneral = new DAO_General();
 $objGeneral->set_id(1);
 $objGeneral->consultar();
@@ -39,7 +39,7 @@ $objGeneral->consultar();
                 $("#msg-error").hide("slow");
                  $.ajax({
             method: "POST",
-            url: "/agencia/clases/class.login.php",
+            url: "/clases/class.login.php",
             data: { 
                 usuario: $("#form-username").val(),
                 clave: $("#form-password").val(),

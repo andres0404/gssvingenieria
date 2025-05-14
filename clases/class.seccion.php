@@ -1,6 +1,6 @@
 <?php
 include_once 'class.conexion.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/DAO/class.DAO.php';
+include_once 'DAO/class.DAO.php';
 /* 
  * Clase que arma el menu de acuerdo con la tabla secciones
  */

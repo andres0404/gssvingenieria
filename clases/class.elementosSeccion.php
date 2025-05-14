@@ -1,9 +1,9 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/ruta.php';
-include_once SERVIDOR.'/clases/DAO/DAO_elementos.php';
-include_once SERVIDOR.'/clases/DAO/DAO_ComplementoSeccion.php';
-include_once SERVIDOR.'/clases/DAO/DAO_ComplementoElemento.php';
-include_once SERVIDOR.'/clases/DAO/DAO_Clientes.php';
+
+include_once __DIR__ . '/DAO/DAO_elementos.php';
+include_once __DIR__ . '/DAO/DAO_ComplementoSeccion.php';
+include_once __DIR__ . '/DAO/DAO_ComplementoElemento.php';
+include_once __DIR__ . '/DAO/DAO_Clientes.php';
 /*
  * 
  */
@@ -88,7 +88,7 @@ class Elementos {
     private function _getPortafolio($arrObj){
         $arrHtml = array();
         //print_r($arrObj);
-        for($i = 0 ; $i < count($arrObj); $i++){
+        for($i = count($arrObj)-1 ; $i >= 0 ; $i--){
             $complement = $arrObj[$i]->get_complemento();
             $a = '';
             $a_close = '';
@@ -98,7 +98,7 @@ class Elementos {
                 $a_close = '</a>';
                 $cruz = '<i class="fa fa-plus fa-3x"></i>';
             }
-            $arrHtml[] = '<div class="col-md-4 col-sm-6 portfolio-item" style="height:420px;">'.($a).'
+            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="height:420px;">'.($a).'
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 '.($cruz).' 

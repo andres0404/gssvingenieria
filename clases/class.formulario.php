@@ -1,8 +1,8 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/ruta.php';
-include_once SERVIDOR.'/clases/class.formInputs.php';
-include_once SERVIDOR.'/clases/class.imagenes.php';
-include_once SERVIDOR.'/clases/class.mtablas.php';
+
+include_once __DIR__.'/class.formInputs.php';
+include_once __DIR__.'/class.imagenes.php';
+include_once __DIR__.'/class.mtablas.php';
 
 /**
  * Clas para crear rapidamente formularios a partir una clase DAO
@@ -72,6 +72,47 @@ class GenerarFormulario {
             if(isset($arrAtributo['sql']) && !empty($arrAtributo['sql'])){ // no mostrar los campos traidos con sql
                 continue;
             }
+            $campoImages = function ($multi_select = false) use (&$html, $form, $separador, $campo) {
+                $_objImg = new Imagenes();
+                $objSeccion = $this->_objDAO->get_obj_seccion();
+                if ($objSeccion instanceof DAO_Secciones ){
+                    //$html .= print_r($this->_objDAO, 1);
+                    // -- verificar si el combo se debe llenar de alguna tabla del maestro de tablas
+                    if(substr($objSeccion->get_img_path(), 0, 1) == ":"){
+                        $idMTablas = substr($objSeccion->get_img_path(), 1);
+                        if(is_numeric($idMTablas)){
+                            $html .= $this->_objDAO->{'get_'.$campo}();
+                            $html .= $multi_select ? 
+                                FormInput::campoMultiSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, MTablas::getTablaCheckBox($idMTablas,NULL,2),$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '') 
+                                : FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, MTablas::getTablaCheckBox($idMTablas,NULL,2),$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');
+                        }
+                    }else{
+                        // -- usar path
+                        $arrPath = explode("/",$objSeccion->get_img_path());
+                        if(isset($arrPath[1])){
+                            $_objImg->setFolder($arrPath[1]);
+                            $listaImg = $_objImg->getListaArchivos(true);
+                            //print_r($listaImg);
+                            $html .= $multi_select ? 
+                                FormInput::campoMultiSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '')
+                                : FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : ''); 
+                        }
+                    }
+                }
+                // -- lista imagenes en formulario complemento
+                if(($this->_objDAO instanceof DAO_ComplementoElemento) OR ($this->_objDAO instanceof DAO_General) ){
+                    //$html .= print_r($this->_objDAO, 1);
+                    $arrPath = explode("/",$this->_objDAO->get_img_path());
+                    if(isset($arrPath[1])){
+                        $_objImg->setFolder($arrPath[1]);
+                        $listaImg = $_objImg->getListaArchivos(true);
+                        //print_r($listaImg);
+                        $html .= $multi_select ?
+                            FormInput::campoMultiSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '')
+                            : FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');
+                    }
+                }
+            };
             switch ($arrAtributo['tipodato']){
                 case 'varchar':
                     //$html .= '<div class="form-group">';
@@ -102,40 +143,11 @@ class GenerarFormulario {
                     break;
                 case 'time':
                     break;
+                case 'lista-multiple-imagen':
+                    $campoImages(true);
+                    break;
                 case 'lista-imagen':
-                    $_objImg = new Imagenes();
-                    $objSeccion = $this->_objDAO->get_obj_seccion();
-                    if ($objSeccion instanceof DAO_Secciones ){
-                        //$html .= print_r($this->_objDAO, 1);
-                        // -- verificar si el combo se debe llenar de alguna tabla del maestro de tablas
-                        if(substr($objSeccion->get_img_path(), 0, 1) == ":"){
-                            $idMTablas = substr($objSeccion->get_img_path(), 1);
-                            if(is_numeric($idMTablas)){
-                                $html .= $this->_objDAO->{'get_'.$campo}();
-                                $html .= FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, MTablas::getTablaCheckBox($idMTablas,NULL,2),$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');
-                            }
-                        }else{
-                            // -- usar path
-                            $arrPath = explode("/",$objSeccion->get_img_path());
-                            if(isset($arrPath[1])){
-                                $_objImg->setFolder($arrPath[1]);
-                                $listaImg = $_objImg->getListaArchivos(true);
-                                //print_r($listaImg);
-                                $html .= FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');
-                            }
-                        }
-                    }
-                    // -- lista imagenes en formulario complemento
-                    if(($this->_objDAO instanceof DAO_ComplementoElemento) OR ($this->_objDAO instanceof DAO_General) ){
-                        //$html .= print_r($this->_objDAO, 1);
-                        $arrPath = explode("/",$this->_objDAO->get_img_path());
-                        if(isset($arrPath[1])){
-                            $_objImg->setFolder($arrPath[1]);
-                            $listaImg = $_objImg->getListaArchivos(true);
-                            //print_r($listaImg);
-                            $html .= FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');
-                        }
-                    }
+                    $campoImages();
                     break;
             }
         }
