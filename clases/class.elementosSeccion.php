@@ -98,15 +98,15 @@ class Elementos {
                 $a_close = '</a>';
                 $cruz = '<i class="fa fa-plus fa-3x"></i>';
             }
-            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="height:420px;">'.($a).'
+            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="height:420px;justify-content: center;display: flex;flex-wrap: wrap;">'.($a).'
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 '.($cruz).' 
                             </div>
                         </div>
-                        <div class="circle">
+                        <div style="display: flex;justify-content: center;flex-wrap: wrap;">
                         <!-- <img class="sobre" style="margin: 6em 0 0 15%;" src="img/linea_roja.gif" width="4" height="47%" />-->
-                        <img src="'.$this->_seccion->get_img_path().$arrObj[$i]->get_img().'" class="img-circle img-responsive" style="width:65%" alt="">
+                        <img src="'.$this->_seccion->get_img_path().$arrObj[$i]->get_img().'" class="img-circle img-responsive" style="width:75%" alt="">
                         
                         </div>'.($a_close).'
                     <div class="portfolio-caption">
@@ -114,14 +114,6 @@ class Elementos {
                         <p class="text-muted">'.$arrObj[$i]->get_texto().'</p>
                     </div>
                 </div>';
-            
-            /* $objComple = $arrObj[$i]->get_objComplemento();
-            if($objComple instanceof DAO_ComplementoElemento ){
-                $id = $objComple->get_id_elemen();
-                if(!empty($id)){
-                    $this->_getPortafolioModal($arrObj);
-                }
-            }*/
         }
         $arrHtml[] = $this->_getPortafolioModal($arrObj);
         return implode("\n", $arrHtml);
@@ -151,7 +143,7 @@ class Elementos {
                     $img = $_objComp->get_comp_img();
                     $countImg = count($img);
                     if($countImg > 1){
-                        $slides .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;">';
+                        $slides .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;display:flex;justify-content:center">';
                         for($i = 0; $i < count($img) ; $i++){
                             $indicators .= ('<li style="border-color:black;" data-target="#' .$id_carousel. '" data-slide-to="'.$i.'" ' . ($i == 0 ? 'class="active"' : '') .'></li>');
                             $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'">
@@ -165,11 +157,11 @@ class Elementos {
                         $html .= '<div class="carousel-inner" role="listbox">';
                         $html .= $slides;
                         $html .= '</div>';
-                        $html .= '<a class="left carousel-control" style="width:10%;border-radius: 5px;opacity:.2" href="#' .$id_carousel. '" role="button" data-slide="prev">
+                        $html .= '<a class="left carousel-control" style="width:10%;border-radius: 50%;opacity:.2;height:4em;top:45%;" href="#' .$id_carousel. '" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="right carousel-control" style="width:10%;border-radius: 5px;opacity:.2" href="#' .$id_carousel. '" role="button" data-slide="next">
+          <a class="right carousel-control" style="width:10%;border-radius: 50%;opacity:.2;height:4em;top:45%;" href="#' .$id_carousel. '" role="button" data-slide="next">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>';
