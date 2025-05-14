@@ -1,8 +1,8 @@
 <?php
 
 //include_once SERVIDOR.'/clases/class.conexion.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/ruta.php';
-include_once SERVIDOR.'/clases/class.conexion.php';
+// include_once '/agencia/ruta.php';cd da   
+include_once __DIR__ . '/../class.conexion.php';
 
 class DAOGeneral {
     
@@ -16,6 +16,7 @@ class DAOGeneral {
      * @var array
      */
     private $_limit = false; 
+    protected $_custom_where = '';
 
     public function __construct() {
        
@@ -30,6 +31,9 @@ class DAOGeneral {
         if(!empty($val2)){
             $this->_limit[1] = $val2;
         }
+    }
+    public function setCustomWhere($custom_where){
+        $this->_custom_where = $custom_where;
     }
     
     /**
@@ -115,7 +119,9 @@ class DAOGeneral {
                 $select[] = $nom_campo;
             }
         }
-        
+        if($this->_custom_where != ''){
+            $where[] = $this->_custom_where;
+        }
         if (count($where) == 0) {
             $query = "select ".implode(",",$select)." from " . $this->_tabla . " where 1 ";
         } else {
@@ -129,39 +135,30 @@ class DAOGeneral {
         if(!empty($this->_limit)){
             $query .= (" LIMIT " . implode(",", $this->_limit));
         }
-        //echo $query;
         $con = ConexionSQL::getInstance();
         $id = $con->consultar($query);
-        $nummm = $con->getNumeroFilasConsultadas($id);
-        //echo "consultado: $nummm -- ";
-        //echo $con->getNumeroFilasConsultadas($id);
+        
         if($res = $con->obenerFila($id)){
-            if ($con->getNumeroFilasConsultadas($id) == 1 && !$this->_1resultadoEnArray) {// si viene mas de un resultado debe clonarse la clase y retornar en un arreglo de clases
-                //$res = $con->obenerFila($id);
-                //for ($i = 0; $i < count($this->_mapa); $i++) {
-                foreach($this->_mapa as $nom_campo => $arrAtributos){
-                    $this->{'_' . $nom_campo} = $res[$nom_campo];
-                }
-                return true;
-            } else {
-                $R = array();
-                do{
-                    $clases_llamada = get_called_class();
-                    $obj = new $clases_llamada()  ;
-                    //print_r($this->_mapa);
-                    foreach($this->_mapa as $nom_campo => $arrAtributos){
-                        //print_r($arrAtributos);
-                        //echo "$nom_campo : $res[$nom_campo] ";
-                        //$obj->{'_' . $this->_mapa[$i]} = $res[$this->_mapa[$i]];
-                        $obj->{'set_'.$nom_campo}($res[$nom_campo]);
-                    }
-                    //print_r($obj);
-                    $R[] = $obj;
-                }while($res = $con->obenerFila($id));
-                return $R;
-            }
+            $R = [];
+            $this->_fillRow($this, $res);
+            do{
+                $clases_llamada = get_called_class();
+                $obj = new $clases_llamada()  ;
+                //foreach($this->_mapa as $nom_campo => $arrAtributos){
+                //    $obj->{'set_'.$nom_campo}($res[$nom_campo]);
+                //}
+                $R[] = $this->_fillRow($obj, $res);
+            } while($res = $con->obenerFila($id));
+            return $R;
+            
         }
         return false;
+    }
+    private function _fillRow($obj, $res){
+        foreach($this->_mapa as $nom_campo => $arrAtributos){
+            $obj->{'set_'.$nom_campo}($res[$nom_campo]);
+        }
+        return $obj;
     }
     
     public function get_obj_seccion(){

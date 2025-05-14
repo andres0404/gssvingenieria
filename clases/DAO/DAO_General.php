@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/DAO/class.DAO.php';
+include_once __DIR__ .'/class.DAO.php';
 
 
 class DAO_General extends DAOGeneral {
