@@ -169,7 +169,7 @@ class FormInput{
         //print_r($valSeleccionados);
         $html = '<div class="form-group">';
         $html .= (empty($nombre) ? '' : ( '<label>'.$nombre.'</label>'));
-        $html .= ('<select class="form-control" name="'.$nameValor.'[]" id="'.$nameValor.'[]" multiple>');
+        $html .= ('<select class="form-control" style="height:15em;" name="'.$nameValor.'[]" id="'.$nameValor.'[]" multiple>');
         foreach($valores as $valor => $label){
             $selected = '';
             if(is_array($valSeleccionados) && in_array($valor, $valSeleccionados)){
