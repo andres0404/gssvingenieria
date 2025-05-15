@@ -15,18 +15,11 @@ $objGeneral->consultar();
         <title>Login Administrador</title>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="assets/css/form-elements.css">
         <link rel="stylesheet" href="assets/css/style.css">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
         <!-- Favicon and touch icons -->
         <link rel="shortcut icon" href="assets/ico/favicon.png">
@@ -69,7 +62,7 @@ $objGeneral->consultar();
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong><a href="/agencia/" title="Inicio" alt="Inicio" ><?php  echo $objGeneral->get_nom_empresa(); ?></a></strong> Login </h1>
+                            <h1><strong><a href="/" title="Inicio" alt="Inicio" ><?php  echo $objGeneral->get_nom_empresa(); ?></a></strong> Login </h1>
                             <div class="description">
                             	<p>
 	                            	<?php $lema = $objGeneral->get_lema(); 
@@ -95,7 +88,7 @@ $objGeneral->consultar();
                             </div>
                             <div class="form-bottom">
                                 <div class="alert alert-danger" id="msg-error" style="display: none;"></div>
-			                    <form role="form" action="" method="post" class="login-form">
+			                    <form role="form" action="" method="post" class="login-form" >
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Usuario</label>
 			                        	<input type="text" name="form-username" placeholder="Usuario..." class="form-username form-control" id="form-username">

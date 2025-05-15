@@ -1,23 +1,13 @@
 <?php
 session_start();
-
-//print_r($_SESSION);
 if(isset($_GET['logout']) AND $_GET['logout'] == 1){
     session_destroy();
-    header("location: /agencia/admin/login/index.php");
+    header("location: /admin/login/index.php");
 }
 if(!isset($_SESSION['id_usu'])){
-    //echo "fuck!";
     header("location: /admin/login/index.php");
-    //echo "<a href='/agencia/'>Inicio</a> ";
-    //exit();
 }
-///print_r($_SESSION);
-/*
-if(session_status() != PHP_SESSION_ACTIVE){
-    header("Location: " . $_SERVER['DOCUMENT_ROOT']);
-}
-*/
+
 
 include_once __DIR__.'/../clases/DAO/DAO_Usuarios.php';
 include_once __DIR__.'/../clases/class.permisos.php';
@@ -58,7 +48,7 @@ $dataMenu = $objMenu->getSecciones();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/agencia/img/logos/favicon.ico"> 
+    <link rel="icon" href="/img/logos/favicon.ico"> 
     <title>Admin - <?php echo $objGeneral->get_nom_empresa(); ?></title>
 
     <!-- Bootstrap Core CSS -->
@@ -146,13 +136,6 @@ $dataMenu = $objMenu->getSecciones();
     $_objForm = new GenerarFormulario();
     echo $_objForm->getJavascriptFormulario();
     ?>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 

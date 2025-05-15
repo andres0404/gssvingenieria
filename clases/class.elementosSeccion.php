@@ -147,7 +147,7 @@ class Elementos {
                         for($i = 0; $i < count($img) ; $i++){
                             $indicators .= ('<li style="border-color:black;" data-target="#' .$id_carousel. '" data-slide-to="'.$i.'" ' . ($i == 0 ? 'class="active"' : '') .'></li>');
                             $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'">
-                            <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="">
+                            <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="" style="height: 40em;">
                             <div class="carousel-caption"></div>
                             </div>';
                         }

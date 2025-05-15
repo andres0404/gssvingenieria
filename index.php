@@ -1,15 +1,9 @@
 <?php
-//include_once 'clases/class.conexion.php';
-//print_r($_SERVER);
-//die(SERVIDOR.'/clases/class.seccion.php');
+
 include_once __DIR__ . '/clases/class.seccion.php';
 include_once __DIR__ . '/clases/DAO/DAO_General.php';
 include_once __DIR__ . '/clases/class.plantillas.php';
-/*
-include_once SERVIDOR.'/clases/class.seccion.php';
-include_once SERVIDOR.'/clases/DAO/DAO_General.php';
-include_once SERVIDOR.'/clases/class.plantillas.php';
-*/
+
 $objGeneral = new DAO_General();
 $objGeneral->set_id(1);
 $objGeneral->consultar();
@@ -20,21 +14,21 @@ $objGeneral->consultar();
 <head>
 
     <meta charset="utf-8">
-    <link rel="icon" href="/agencia/img/logos/favicon.ico"> 
+    <link rel="icon" href="/img/logos/favicon.ico"> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo $objGeneral->get_desc_pagina(); ?>">
     <meta name="author" content="<?php echo $objGeneral->get_tit_pagina();?>">
     
-    <meta property="og:url"           content="http://www.gssvingenieria.com/agencia/" />
+    <meta property="og:url"           content="https://www.gssvingenieria.com/" />
 <meta property="og:type"               content="business.business" />
 <meta property="og:title"              content="<?php echo $objGeneral->get_tit_pagina();?>" />
 <meta property="og:description"        content="<?php echo $objGeneral->get_desc_pagina(); ?>" />
-<meta property="og:image"              content="http://<?php echo $_SERVER['HTTP_HOST'].'/agencia/img/logos/gssv_mini.png';?>" />
+<meta property="og:image"              content="https://<?php  echo $_SERVER['HTTP_HOST'].'/img/logosClientes/gssv_mini.png';?>" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="230" />
 <meta property="og:image:height" content="100" />
-<meta property="og:image"              content="http://<?php echo $_SERVER['HTTP_HOST'].'/agencia/img/share1.png';?>" />
+<meta property="og:image"              content="https://<?php echo $_SERVER['HTTP_HOST'].'/img/share1.png';?>" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="400" />
 
@@ -53,12 +47,7 @@ $objGeneral->consultar();
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
     <style type="text/css">
 .sobre {
  position:absolute;
@@ -71,11 +60,6 @@ $objGeneral->consultar();
 
 <body id="page-top" class="index">
 <?php
-/*$con = ConexionSQL::getInstance();
-$id = $con->consultar("select * from general");
-$res = $con->obenerFila($id);
-print_r($res);*/
-
 $objMenu = new Secciones();
 $dataMenu = $objMenu->getSecciones();
 

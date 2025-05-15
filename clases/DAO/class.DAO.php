@@ -1,7 +1,7 @@
 <?php
 
 //include_once SERVIDOR.'/clases/class.conexion.php';
-// include_once '/agencia/ruta.php';cd da   
+// include_once '/ruta.php';cd da   
 include_once __DIR__ . '/../class.conexion.php';
 
 class DAOGeneral {

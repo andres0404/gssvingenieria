@@ -3,7 +3,7 @@
         <title>GSSV ingenieria S.A.S</title>
         <script>
         function redireccionar(){
-            document.location.href="agencia/";
+            document.location.href="";
         }
         </script>
     </head>

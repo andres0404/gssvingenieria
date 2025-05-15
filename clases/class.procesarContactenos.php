@@ -1,7 +1,7 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/DAO/DAO_Contactenos.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/agencia/clases/class.mail.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/clases/DAO/DAO_Contactenos.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/clases/class.mail.php';
 
 class ProcesarContactenos {
     

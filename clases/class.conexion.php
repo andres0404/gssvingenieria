@@ -114,7 +114,7 @@ class Conexiones{
             'database' => 'n260m_17133702_gssv_ingenieria'        
         ),
         'servidor' => array(
-            'server' => 'localhost',
+            'server' => 'db',
             'username' => 'gssvinge_admin',
             'password' => 'Batman84',
             'database' => 'gssvinge_gssv_ingenieria'        
