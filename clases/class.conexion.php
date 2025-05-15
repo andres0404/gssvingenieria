@@ -47,7 +47,7 @@ class ConexionSQL{
     private function _conectar(){
         //print_r(self::$_conData);
         try {
-            $this->_link = new PDO("mysql:host=db;dbname=" . self::$_conData->getDatabase() .";charset=utf8mb4", self::$_conData->getUsername(), self::$_conData->getPassword());
+            $this->_link = new PDO("mysql:host=".self::$_conData->getServer().";dbname=" . self::$_conData->getDatabase() .";charset=utf8mb4", self::$_conData->getUsername(), self::$_conData->getPassword());
             $this->_link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e){
             throw new ConexionSQLException($e->getMessage());
