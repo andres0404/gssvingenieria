@@ -193,7 +193,7 @@ $dataMenu = $objMenu->getSecciones();
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu alert-dropdown">
                         <li>
@@ -219,7 +219,7 @@ $dataMenu = $objMenu->getSecciones();
                             <a href="#">View All</a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $objUsuario->get_nombre(); ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
