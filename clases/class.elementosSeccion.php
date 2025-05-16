@@ -152,7 +152,7 @@ class Elementos {
                         }
                         $html .= '<div id="' .$id_carousel. '" class="carousel slide" data-ride="carousel">';
                         $html .= ('<ol class="carousel-indicators">'.$indicators.'</ol>');
-                        $html .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;display:flex;justify-content:center;height:30em;">';
+                        $html .= '<div class="carousel-inner carouse-inner-custom" role="listbox" >';
                         $html .= $slides;
                         $html .= '</div>';
                         $html .= '<a class="left carousel-control carousel-custom-control"  href="#' .$id_carousel. '" role="button" data-slide="prev">

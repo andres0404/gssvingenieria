@@ -945,3 +945,14 @@ body {
     height:4em;
     top:45%;
 }
+.carouse-inner-custom{
+    border-radius:5px;
+    display:flex;
+    justify-content:center;
+    height:30em;
+}
+@media screen and (max-width: 600px) {
+    .carouse-inner-custom{
+    height:20em;
+}
+}
