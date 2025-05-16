@@ -934,3 +934,6 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: #DF0101; /*#fed136;*/
 }
+.carousel-img {
+    max-height: 100% !important;
+}

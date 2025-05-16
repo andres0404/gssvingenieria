@@ -98,7 +98,7 @@ class Elementos {
                 $a_close = '</a>';
                 $cruz = '<i class="fa fa-plus fa-3x"></i>';
             }
-            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="height:420px;justify-content: center;display: flex;flex-wrap: wrap;">'.($a).'
+            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="justify-content: center;display: flex;flex-wrap: wrap;">'.($a).'
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 '.($cruz).' 
@@ -116,7 +116,8 @@ class Elementos {
                 </div>';
         }
         $arrHtml[] = $this->_getPortafolioModal($arrObj);
-        return implode("\n", $arrHtml);
+        $container = '<div style="display:flex;flex-wrap:wrap">' . implode("\n", $arrHtml) . '</div>';
+        return $container;
     }
     /**
      * 
@@ -143,11 +144,11 @@ class Elementos {
                     $img = $_objComp->get_comp_img();
                     $countImg = count($img);
                     if($countImg > 1){
-                        $slides .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;display:flex;justify-content:center">';
+                        $slides .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;display:flex;justify-content:center;height:30em;">';
                         for($i = 0; $i < count($img) ; $i++){
                             $indicators .= ('<li style="border-color:black;" data-target="#' .$id_carousel. '" data-slide-to="'.$i.'" ' . ($i == 0 ? 'class="active"' : '') .'></li>');
                             $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'">
-                            <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="" style="height: 40em;">
+                            <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="" class="carousel-img">
                             <div class="carousel-caption"></div>
                             </div>';
                         }
