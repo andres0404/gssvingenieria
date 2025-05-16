@@ -98,7 +98,7 @@ class Elementos {
                 $a_close = '</a>';
                 $cruz = '<i class="fa fa-plus fa-3x"></i>';
             }
-            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="justify-content: center;display: flex;flex-wrap: wrap;">'.($a).'
+            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="justify-content: center;display: flex;flex-wrap: wrap;align-content:flex-start;">'.($a).'
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 '.($cruz).' 
