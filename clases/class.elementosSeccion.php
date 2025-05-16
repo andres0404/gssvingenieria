@@ -36,7 +36,15 @@ class Elementos {
         $arrObj  = $objDAO->consultar();
         switch ($idSeccion) {
             case 1: // 
-                $html = $this->_getServicios($arrObj);
+                $html = '<script>'
+                . 'function abre_cierra_servicio(id){'
+                . '     $("#servi_txt_" + id).slideToggle("fast", '
+                . '         function(){ '
+                . '             if(  $("#servi_txt_" + id).css("display") == "none" ){  '
+                . '$("#servi_" + id).removeClass("fa fa-chevron-circle-up fa-stack").addClass("fa fa-chevron-circle-down fa-stack");}else{ $("#servi_" + id).removeClass("fa fa-chevron-circle-down fa-stack").addClass("fa fa-chevron-circle-up fa-stack");}'
+                . '     });'
+                . '}</script>';
+                $html .= $this->_getServicios($arrObj);
                 break;
             case 2:// proyectos
                 $html = $this->_getPortafolio($arrObj);
@@ -61,23 +69,18 @@ class Elementos {
     private function _getServicios($arrObj){
        
         $arrHtml = array();
-        $arrHtml[] = '<script>'
-                . 'function abre_cierra_servicio(id){'
-                . '     $("#servi_txt_" + id).slideToggle("fast", '
-                . '         function(){ '
-                . '             if(  $("#servi_txt_" + id).css("display") == "none" ){  '
-                . '$("#servi_" + id).removeClass("fa fa-chevron-circle-up fa-stack").addClass("fa fa-chevron-circle-down fa-stack");}else{ $("#servi_" + id).removeClass("fa fa-chevron-circle-down fa-stack").addClass("fa fa-chevron-circle-up fa-stack");}'
-                . '     });'
-                . '}</script>';
-        
+        $col_por_fila = 3;
         for($i = 0 ; $i < count($arrObj); $i++){
-            $arrHtml[] = '<div class="col-md-4"><span class="fa-stack fa-4x" style="cursor:pointer;" onclick="abre_cierra_servicio('.$arrObj[$i]->get_id_elemen().')" >
+            $arrHtml[] = '<div class="col-sm-4"><span class="fa-stack fa-4x" style="cursor:pointer;" onclick="abre_cierra_servicio('.$arrObj[$i]->get_id_elemen().')" >
                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
                     <i class="fa fa-'.$arrObj[$i]->get_img().' fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 class="service-heading" onclick="abre_cierra_servicio('.$arrObj[$i]->get_id_elemen().')" style="cursor:pointer;">'.$arrObj[$i]->get_titulo().'<span id="servi_'.$arrObj[$i]->get_id_elemen().'" class="fa fa-chevron-circle-down fa-stack " ></span></h4>
                 <div class="text-muted" style="display:none" id="servi_txt_'.$arrObj[$i]->get_id_elemen().'">'.$arrObj[$i]->get_texto().'</div>
             </div>';
+            if(($i+1) % $col_por_fila == 0){
+                $arrHtml[] = '</div><div class="row text-center">';
+            }
         }
         return implode("\n", $arrHtml);
     }
