@@ -936,4 +936,12 @@ body {
 }
 .carousel-img {
     max-height: 100% !important;
+/*align-self: center;*/
+}
+.carousel-custom-control{
+    width:10%;
+    border-radius: 50%;
+    opacity:.2;
+    height:4em;
+    top:45%;
 }

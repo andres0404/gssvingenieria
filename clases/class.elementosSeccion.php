@@ -144,25 +144,22 @@ class Elementos {
                     $img = $_objComp->get_comp_img();
                     $countImg = count($img);
                     if($countImg > 1){
-                        $slides .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;display:flex;justify-content:center;height:30em;">';
                         for($i = 0; $i < count($img) ; $i++){
                             $indicators .= ('<li style="border-color:black;" data-target="#' .$id_carousel. '" data-slide-to="'.$i.'" ' . ($i == 0 ? 'class="active"' : '') .'></li>');
-                            $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'">
+                            $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'" style="height: 100%;">
                             <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="" class="carousel-img">
-                            <div class="carousel-caption"></div>
                             </div>';
                         }
-                        $slides .= '</div>';
                         $html .= '<div id="' .$id_carousel. '" class="carousel slide" data-ride="carousel">';
                         $html .= ('<ol class="carousel-indicators">'.$indicators.'</ol>');
-                        $html .= '<div class="carousel-inner" role="listbox">';
+                        $html .= '<div class="carousel-inner" role="listbox" style="border-radius:5px;display:flex;justify-content:center;height:30em;">';
                         $html .= $slides;
                         $html .= '</div>';
-                        $html .= '<a class="left carousel-control" style="width:10%;border-radius: 50%;opacity:.2;height:4em;top:45%;" href="#' .$id_carousel. '" role="button" data-slide="prev">
+                        $html .= '<a class="left carousel-control carousel-custom-control"  href="#' .$id_carousel. '" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="right carousel-control" style="width:10%;border-radius: 50%;opacity:.2;height:4em;top:45%;" href="#' .$id_carousel. '" role="button" data-slide="next">
+          <a class="right carousel-control carousel-custom-control"  href="#' .$id_carousel. '" role="button" data-slide="next">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>';
