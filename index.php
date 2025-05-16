@@ -148,7 +148,7 @@ $dataMenu = $objMenu->getSecciones();
                     <ul class="list-inline quicklinks">
                         <li><a href="#">Politica de privacidad</a>
                         </li>
-                        <li>Desarrollado por: <a href="mailto:leviatan.info@gmail.com" title="app cloud - Contacto: Andres Silva">apps cloud <span class="fa fa-cloud fa-stack "></span></a>
+                        <li>Desarrollado por: <a href="https://www.linkedin.com/in/andres-silva-vega-silva-b48016a6/" target="_blank" title="Andres Silva: Ingeniero de Software">Andres Silva<span class="fa fa-linkedin-square fa-stack "></span></a>
                         </li>
                     </ul>
                 </div>
