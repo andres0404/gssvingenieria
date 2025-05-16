@@ -953,6 +953,9 @@ body {
 }
 @media screen and (max-width: 600px) {
     .carouse-inner-custom{
-    height:20em;
-}
+        height:20em;
+    }
+    .carousel-custom-control{
+        top: 35%;
+    }
 }
