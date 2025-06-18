@@ -51,7 +51,9 @@ class GenerarFormulario {
      */
     public function obtenerFormulario($conModal = false){
         $primario = $this->_objDAO->getPrimario();
-        $form = "F".$this->_objDAO->getTabla().$this->_objDAO->{'get_'.$primario}();
+        $id = $this->_objDAO->{'get_'.$primario}();
+        $id = empty($id) ? substr(sha1(rand(1000,10000)),0,10) : $id;
+        $form = "F".$this->_objDAO->getTabla().$id;
         $mapa = $this->_objDAO->getMapa();
         $separador = "|";
         $html = '';
