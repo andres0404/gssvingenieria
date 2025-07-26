@@ -1,5 +1,5 @@
 <?php
-
+include_once __DIR__.'/class.paginador.php';
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -109,18 +109,32 @@ class Imagenes{
      * @return string
      */
     private function _listarDirectorios(){
+        $objPaginador = new Paginador();
         $html = '<ul>';
         if(is_dir($this->_pathImg)){
             if($dir = opendir($this->_pathImg)){
                 while(($files = readdir($dir)) !== false){
                     if(is_dir($this->_pathImg.$files) && $files != "." && $files != ".."){
-                        $html .= ("<li><a href='".$_SERVER['PHP_SELF']."?idsec=-1&dir=".$files."'>$files</a></li>");
+                        $html .= ("<li><a href='".$_SERVER['PHP_SELF']."?idsec=-1&dir=".$files."&page=1&per_page=50'>$files</a></li>");
                         if($files == $this->_verFolder && $idfil = opendir($this->_pathImg.$files) ){
-                            $count = 1;
+
+                            $filArr = [];
                             while( ($fil = readdir($idfil) ) !== false ){
-                                if($fil != "." && $fil != ".."){
-                                    $this->_lisArchivos[] = '<div id="cont_'.$count.'" style="display:inline-block"><img src="/img/'.$files.'/'.$fil.'" alt="['.$fil.']" style="width:140px;" class="img-thumbnail"><div><i class="fa fa-times" style="cursor:pointer;" title="Eliminar" onclick="'.$this->_jsFuncionesImg['eliminar'].'(\''.$files.'\',\''.$fil.'\','.$count.');" ></i> '.$fil.'</div></div>' ;
-                                    $count += 1;
+                                $filArr[] = $fil;
+                            }
+                            $total_img = count($filArr);
+                            $stay_per_page = isset($_GET['per_page']) && isset($_GET['page']) ? $_GET['per_page']*$_GET['page'] : $total_img;
+                            $per_page = isset($_GET['per_page']) ? $_GET['per_page'] : $total_img;
+                            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                            $start_page = isset($_GET['per_page']) && isset($_GET['page']) ? $_GET['per_page']*$_GET['page']-$_GET['per_page'] : 0;
+                            $objPaginador->preparar_manual($page,$per_page, $total_img);
+                            $this->_lisArchivos[] = $objPaginador->getHtml();
+                            for($i = $start_page; $i < $stay_per_page; $i++){
+                                if(!isset($filArr[$i])){
+                                    break;
+                                }
+                                if($filArr[$i] != "." && $filArr[$i] != ".."){
+                                    $this->_lisArchivos[] = '<div id="cont_'.$i.'" style="display:inline-block"><img src="/img/'.$files.'/'.$filArr[$i].'" alt="['.$filArr[$i].']" style="width:140px;" class="img-thumbnail"><div><i class="fa fa-times" style="cursor:pointer;" title="Eliminar" onclick="'.$this->_jsFuncionesImg['eliminar'].'(\''.$files.'\',\''.$filArr[$i].'\','.$i.');" ></i> '.$filArr[$i].'</div></div>' ;
                                 }
                             }
                         }

@@ -41,9 +41,8 @@ class DAOGeneral {
     public function setPaginacion(){
         $this->_paginado_vars = [
             'page' => isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : false,
-            'per_page' => (isset($_GET['per_page']) && is_numeric($_GET['per_page']) ? $_GET['per_page'] : 10),
-            'total_registros' => 0,
-            'total_paginas' => 0
+            'per_page' => (isset($_GET['per_page']) && is_numeric($_GET['per_page']) ? $_GET['per_page'] : 30),
+            'total_registros' => 0
         ];
         if($this->_paginado_vars['page']){
             $this->setLimit($this->_paginado_vars['page'], $this->_paginado_vars['per_page']);
@@ -188,7 +187,6 @@ class DAOGeneral {
                 $id = $con->consultar($queryTotalRegistros);
                 $res = $con->obenerFila($id);
                 $this->_paginado_vars['total_registros'] = $res['total'];
-                $this->_paginado_vars['total_paginas'] = ceil($res['total'] / $this->_paginado_vars['per_page']);
             }
             return $R;
             

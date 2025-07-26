@@ -225,7 +225,7 @@ $dataMenu = $objMenu->getSecciones();
                 <ul class="nav navbar-nav side-nav">
                     <li <?php echo isset($_GET['idsec']) && $_GET['idsec'] == -2 ? 'class="active"' : ''; ?>><a href="index.php?idsec=-2" ><i class="fa fa-fw fa-dashboard"></i> General</a></li>
                     <?php
-                    // GENERACION DE MANU IZQUIERDO
+                    // GENERACION DE MENU IZQUIERDO
                     if($dataMenu != FALSE ){
                         for($i = 0; $i < count($dataMenu); $i++){
                             $idSeccion = $dataMenu[$i]->get_idSeccion(); 
@@ -366,7 +366,8 @@ $dataMenu = $objMenu->getSecciones();
                         $objElemento->set_obj_seccion($_objSeccion);
                         $objElemento->setPaginacion();
                         $arrElem = $objElemento->consultar();
-                        $objPaginador = new Paginador($objElemento);
+                        $objPaginador = new Paginador();
+                        $objPaginador->preparar($objElemento);
                         echo $objPaginador->getHtml();
                         //print_r($arrElem);
                         if(is_array($arrElem)){
