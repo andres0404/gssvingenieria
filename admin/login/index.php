@@ -37,10 +37,7 @@ $objGeneral->consultar();
                 usuario: $("#form-username").val(),
                 clave: $("#form-password").val(),
             }
-          })
-            .done(function( msg ) {
-              //alert( msg );
-              //var obj = $.parseJSON(msg);
+          }).done(function( msg ) {
               if(msg.ok == 0){
                   $("#msg-error").html(msg.mensaje);
                   $("#msg-error").show("slow");

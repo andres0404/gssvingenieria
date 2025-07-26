@@ -8,7 +8,10 @@ class ConexionSQL{
      */
     private static $_conData;
     private static $_obj = null;
-    
+    private $_insert_id;
+    /**
+     * @var PDO
+     */
     private $_link;
     /**
      *
@@ -52,22 +55,24 @@ class ConexionSQL{
         } catch(PDOException $e){
             throw new ConexionSQLException($e->getMessage());
         }
-        // if(!$this->_link = mysqli_connect(self::$_conData->getServer(), self::$_conData->getUsername(), self::$_conData->getPassword())){
-        //     throw new ConexionSQLException("No se pudo conectar. ".  mysqli_error($this->_link));
-        // }
-        // if(!mysqli_select_db($this->_link,self::$_conData->getDatabase())){
-        //     throw new ConexionSQLException("No se pudo seleccionar base de datos ".  mysqli_error($this->_link));
-        // }
-        // mysqli_set_charset($this->_link,'utf8');
     }
     /**
      * 
      * @param type $query
-     * @return type
+     * @return array
      */
     public function consultar($query){
         // $result = mysqli_query($this->_link,$query);
         return $this->_link->query($query, PDO::FETCH_ASSOC);
+    }
+    /**
+     * @param type $query
+     * @return PDO
+     */
+    public function ejecutar($query){
+        $result = $this->_link->exec($query);
+        $this->_insert_id = $this->_link->lastInsertId();
+        return $result;
     }
     /**
      * Obtener numero de filas de una consulta
@@ -76,6 +81,13 @@ class ConexionSQL{
      */
     public function getNumeroFilasConsultadas($id){
         return mysqli_num_rows($id);
+    }
+    /**
+     * Obtener el ultimo id insertado
+     * @return integer
+     */
+    public function getInsertId(){
+        return $this->_insert_id;
     }
     /**
      * 

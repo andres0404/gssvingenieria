@@ -28,7 +28,7 @@ class DAO_ComplementoElemento extends DAOGeneral {
     protected $_ordenar = array();
     
     function get_img_path() {
-        return $this->_img_path;
+        return $this->_img_path === NULL ? '' : $this->_img_path;
     }
 
     function set_img_path($_img_path) {

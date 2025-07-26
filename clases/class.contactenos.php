@@ -30,37 +30,6 @@ class Contactenos{
         //print_r($this->_arrObjContacto);
     }
     /**
-     * Obtener javascript del elemento
-     * @return string
-     */
-    public function getScriptContactenosNoVistos(){
-        $idMensaje = array();
-        //print_r($this->_arrObjContacto);
-        if(is_array($this->_arrObjContacto) && count($this->_arrObjContacto) > 0){
-            foreach($this->_arrObjContacto as $obj){
-                $idMensaje[] = $obj->get_id_contact();
-            }
-        }
-        $html = '<script>
-            var VISTO = 0;
-                function marcarVistos(){
-                    if(VISTO == 1) return false;
-                    $.ajax({
-                method: "POST",
-                url: "/clases/class.procesarFormulario.php",
-                data: { contacVisto: "1", mensajes: ['.  implode(",", $idMensaje).'] }
-              })
-                .done(function( objP ) {
-                  //alert( "Data Saved: " + msg );
-                  //var objP = $.parseJSON( msg );
-                  VISTO = 1;
-                  $("#contacto_badge").css("display","none");
-                });
-                        }
-                    </script>';
-        return $html;
-    }
-    /**
      * Numero de mensajes contactenos no visto
      * @return string
      */
@@ -71,7 +40,7 @@ class Contactenos{
     }
     
     /**
-     * Mensajes contactenos no vistos en el menu del principio
+     * Mensajes contactenos no vistos en el top menu administrador
      */ 
     public function obtenerContactenosNoVistos(){
         $R = array();
@@ -129,7 +98,7 @@ class Contactenos{
         $mail = $_obj->get_email();
         $htmlMail = !empty($tel) ? ("<div class=\"small text-muted\"><b>Correo.: </b> $mail </div>") : '';
         $hora = substr($_obj->get_hora_envio(), 0,5);
-        $html = '<li class="message-preview">
+        $html = '<li class="message-preview" id="'.$_obj->get_id_contact().'">
                             <a href="'.$_SERVER['PHP_SELF'].'?idsec=-3">
                                 <div class="media">
                                     <span class="pull-left">

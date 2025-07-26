@@ -15,8 +15,10 @@ class DAOGeneral {
      * Limit de la consulta (int 1, int 2)
      * @var array
      */
-    private $_limit = false; 
+    private $_limit = null; 
     protected $_custom_where = '';
+    private $_es_paginado = false;
+    protected $_paginado_vars;
 
     public function __construct() {
        
@@ -31,6 +33,31 @@ class DAOGeneral {
         if(!empty($val2)){
             $this->_limit[1] = $val2;
         }
+    }
+    /**
+     * Establece los parametros para enviar una consulta con limit y order para paginacion
+     * Use la funcion antes del metodo consultar pues esta hara un count antes de la consulta sin paginar para establecer el total de registros
+     */
+    public function setPaginacion(){
+        $this->_paginado_vars = [
+            'page' => isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : false,
+            'per_page' => (isset($_GET['per_page']) && is_numeric($_GET['per_page']) ? $_GET['per_page'] : 10),
+            'total_registros' => 0,
+            'total_paginas' => 0
+        ];
+        if($this->_paginado_vars['page']){
+            $this->setLimit($this->_paginado_vars['page'], $this->_paginado_vars['per_page']);
+        }
+        if(isset($_GET['sort'])){
+            $this->_ordenar = [$_GET['sort'] . " " . (isset($_GET['order']) && in_array($_GET['order'],['asc','desc']) ? $_GET['order'] : "asc")];
+        }
+        $this->_es_paginado = true;
+    }
+    /**
+     * Solo disponible si se habilitpo el paginador con la funcion setPaginacion
+     */
+    public function getPaginadoVars(){
+        return $this->_paginado_vars;
     }
     public function setCustomWhere($custom_where){
         $this->_custom_where = $custom_where;
@@ -98,10 +125,10 @@ class DAOGeneral {
         }else{
             $query = "insert into ".$this->_tabla." set ".  implode(",", $set) ;
         }
-        $query;
-        if($id = $con->consultar($query)){
+        
+        if($id = $con->ejecutar($query)){
             if(empty($this->{'_'.$this->_primario})){
-                $this->{'_'.$this->_primario} = mysql_insert_id();
+                $this->{'_'.$this->_primario} = $con->getInsertId();
             }
             return true;
         }
@@ -130,8 +157,10 @@ class DAOGeneral {
         }
         if (count($where) == 0) {
             $query = "select ".implode(",",$select)." from " . $this->_tabla . " where 1 ";
+            $queryTotalRegistros = "select count(*) total from "  . $this->_tabla . " where 1 "; // consulta para paginador
         } else {
             $query = "select ".implode(",",$select)." from " . $this->_tabla . " where " . implode(" AND ", $where)." ";
+            $queryTotalRegistros = "select count(*) total from " . $this->_tabla . " where " . implode(" AND ", $where); // consulta para paginador
         }
         // orden 
         if(isset($this->_ordenar) && is_array($this->_ordenar) && count($this->_ordenar) > 0){
@@ -155,6 +184,12 @@ class DAOGeneral {
                 //}
                 $R[] = $this->_fillRow($obj, $res);
             } while($res = $con->obenerFila($id));
+            if($this->_es_paginado){
+                $id = $con->consultar($queryTotalRegistros);
+                $res = $con->obenerFila($id);
+                $this->_paginado_vars['total_registros'] = $res['total'];
+                $this->_paginado_vars['total_paginas'] = ceil($res['total'] / $this->_paginado_vars['per_page']);
+            }
             return $R;
             
         }

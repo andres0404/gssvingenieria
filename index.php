@@ -181,6 +181,9 @@ $dataMenu = $objMenu->getSecciones();
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
 
+    <!-- Custom JavaScript de la pagina -->
+    <script src="js/custom.js"></script>
+
 </body>
 
 </html>

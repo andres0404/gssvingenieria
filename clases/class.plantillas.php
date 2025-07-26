@@ -4,6 +4,7 @@ include_once 'class.elementosSeccion.php';
 
 /* 
  * Plantillas
+ * Las funcines js que puedan ser utilizadas en las plantillas debe colocarlas en el archivo js/custom.js
  */
 
 class Plantillas {
@@ -90,33 +91,7 @@ class Plantillas {
     </section>';
         return $hmtl;
     }
-    /*
-     
-    <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading">Dise&ntilde;o estructural</h4>
-                    <p class="text-muted">Planos calculados de las ideas de sus arquitectos.</p>
-                </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading">Documentaci&oacute;n en la nube</h4>
-                    <p class="text-muted">Disponga de la documentacion generada por nosotros en la nube.</p>
-                </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading">Gesti&oacute;n d permisos</h4>
-                    <p class="text-muted">Gestión de permisos ante el IDU y entregamos su proyecto listo para ser contruido.</p>
-                </div>
-    */
+   
     /**
      * protafolio
      * @return string
@@ -175,13 +150,7 @@ class Plantillas {
     </section>';
         return $html;
     }
-    /*<!--<li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <h4>Haremos parte
-                                    <br>de su 
-                                    <br>Historia!</h4>
-                            </div>
-                        </li>-->*/
+   
     /**
      * 
      * @return string
@@ -207,14 +176,6 @@ class Plantillas {
             </div>
         </div>
     </section>';
-        /*$html .= '<!-- Clients Aside -->
-    <aside class="clients">
-        <div class="container">
-            <div class="row">
-                '.$objElem->getImgEmpresas().'
-            </div>
-        </div>
-    </aside>';*/
         return $html;
     }
     /**
@@ -239,34 +200,6 @@ class Plantillas {
         }
         $html = '<!-- Contact Section -->
     <section id="'.$this->_objSeccion->get_anclaSeccion().'" class="contact">
-        <script>
-        function enviarFormContactenos(){
-            $("#contenedor_alert").fadeOut("slow");
-            $.ajax({
-            method: "POST",
-            url: "clases/class.procesarContactenos.php",
-            data: { 
-                con_name: $("#con_name").val(),
-                con_email: $("#con_email").val(),
-                con_phone:$("#con_phone").val(),
-                con_message:$("#con_message").val(),
-            }
-          })
-            .done(function( msg ) {
-              //alert( msg );
-              var obj = $.parseJSON(msg);
-              $("#texto_alert").html(obj.mensaje);
-              $("#contenedor_alert").fadeIn("slow");
-              if(obj.codigo == 1){
-                // limpiar campos
-                $("#con_name").val("");
-                $("#con_email").val("");
-                $("#con_phone").val("");
-                $("#con_message").val("");
-              }
-            });
-        }
-        </script>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">

@@ -37,7 +37,7 @@ if(isset($_POST['form_clase']) && !empty($_POST['form_clase'])){
 }
 // -- Para mensajes de contacto vistos
 if(isset($_POST['contacVisto']) && !empty($_POST['contacVisto']) ){
-    include_once SERVIDOR.'/clases/DAO/DAO_Contactenos.php';
+    include_once __DIR__.'/DAO/DAO_Contactenos.php';
     if(count($_POST['mensajes']) > 0){
         for($i = 0 ; $i < count($_POST['mensajes']); $i++){
             $_objCon = new DAO_Contactenos();

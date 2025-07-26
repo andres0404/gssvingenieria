@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/ruta.php';
-include_once SERVIDOR.'/clases/class.imagenes.php';
+
+include_once __DIR__.'/../clases/class.imagenes.php';
 
 /*print_r($_POST);
 print_r($_FILES);
@@ -26,5 +26,5 @@ if(isset($_FILES['img_imagen']) && isset($_POST['img_folder']) && !empty($_POST[
     } catch (ImagenesException $ex) {
         $R = array("ok" => "0", "mensaje" => $ex->getMessage());
     }
-    header("location: /admin/index.php?idsec=-1&dir={$_POST['img_folder']}&msg=".base64_encode(json_encode($R)) );
+    header("location: index.php?idsec=-1&dir={$_POST['img_folder']}&msg=".base64_encode(json_encode($R)) );
 }

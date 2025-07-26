@@ -16,6 +16,7 @@ include_once __DIR__.'/../clases/class.contactenos.php';
 include_once __DIR__.'/../clases/DAO/DAO_Secciones.php';
 include_once __DIR__.'/../clases/DAO/DAO_elementos.php';
 include_once __DIR__.'/../clases/class.formulario.php';
+include_once __DIR__.'/../clases/class.paginador.php';
 
 // consultar provisionalmente
 $objUsuario = new DAO_Usuarios();
@@ -131,10 +132,7 @@ $dataMenu = $objMenu->getSecciones();
     </script>
     <?php 
     $_objImg = new Imagenes();
-    echo $_objImg->getJavascriptEliminarImagen();
-    echo $_objImg->getJavascriptSubirImagen();
     $_objForm = new GenerarFormulario();
-    echo $_objForm->getJavascriptFormulario();
     ?>
 
 </head>
@@ -162,7 +160,7 @@ $dataMenu = $objMenu->getSecciones();
                     <?php
                         $_objContacto = new Contactenos();
                         $_objContacto->consultarContactenosNoVistos();
-                        echo $_objContacto->getScriptContactenosNoVistos();
+                        
                         //6129
                         ?>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="marcarVistos();"><?php echo $_objContacto->getBadge(); ?> <i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -227,13 +225,12 @@ $dataMenu = $objMenu->getSecciones();
                 <ul class="nav navbar-nav side-nav">
                     <li <?php echo isset($_GET['idsec']) && $_GET['idsec'] == -2 ? 'class="active"' : ''; ?>><a href="index.php?idsec=-2" ><i class="fa fa-fw fa-dashboard"></i> General</a></li>
                     <?php
-                    // generacion de menu izquierdo
+                    // GENERACION DE MANU IZQUIERDO
                     if($dataMenu != FALSE ){
                         for($i = 0; $i < count($dataMenu); $i++){
                             $idSeccion = $dataMenu[$i]->get_idSeccion(); 
                             $class = isset($_GET['idsec'] ) && $idSeccion == $_GET['idsec'] ? 'class="active"' : '';
-                            //echo '<li><a class="page-scroll" href="#'.$dataMenu[$i]->get_anclaSeccion().'">'.ucfirst($dataMenu[$i]->get_nomSeccion() ).'</a></li>';
-                            echo '<li '.$class.'><a href="index.php?idsec='.$idSeccion.'"><i class="fa fa-fw '.$dataMenu[$i]->get_icono().'"></i> '.ucfirst($dataMenu[$i]->get_nomSeccion() ).'</a></li>';
+                            echo '<li '.$class.'><a href="index.php?idsec='.$idSeccion.'&page=1&per_page=30"><i class="fa fa-fw '.$dataMenu[$i]->get_icono().'"></i> '.ucfirst($dataMenu[$i]->get_nomSeccion() ).'</a></li>';
                         }
                     }
                     $_objSeccion = new DAO_Secciones();
@@ -367,7 +364,10 @@ $dataMenu = $objMenu->getSecciones();
                         // ---- listado de elementos de seccion
                         $objElemento = new DAO_Elementos();
                         $objElemento->set_obj_seccion($_objSeccion);
+                        $objElemento->setPaginacion();
                         $arrElem = $objElemento->consultar();
+                        $objPaginador = new Paginador($objElemento);
+                        echo $objPaginador->getHtml();
                         //print_r($arrElem);
                         if(is_array($arrElem)){
                             foreach($arrElem as $key => $objE){
@@ -392,6 +392,7 @@ $dataMenu = $objMenu->getSecciones();
                             </div>
                             <?php
                             }
+                            echo $objPaginador->getHtml();
                         }
                         ?>
                     </div>
@@ -421,6 +422,8 @@ $dataMenu = $objMenu->getSecciones();
     <script src="js/plugins/morris/raphael.min.js"></script>
     <script src="js/plugins/morris/morris.min.js"></script>
     <script src="js/plugins/morris/morris-data.js"></script>
+
+    <script src="js/custom.js"></script>
 
 </body>
 

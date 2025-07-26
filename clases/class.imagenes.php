@@ -156,52 +156,6 @@ class Imagenes{
         return $fil;
     }
     /**
-     * Obtener funcion javascript para eliminar una imagen
-     * @return string
-     */
-    public function getJavascriptEliminarImagen(){
-        $javas = '<script>';
-        $javas .= ('function '.$this->_jsFuncionesImg['eliminar'].'(path, nomImg,div_cont){');
-        $javas .= 'if(confirm("Desea eliminar la imagen " + nomImg + "?" )){';
-        $javas .= ('$.ajax({
-                method: "POST",
-                url: "'.$this->_operarImagenes.'",
-                data: { borrar_img: "1", path: path, img: nomImg }
-              })
-                .done(function( objP ) {
-                  //alert( "Data Saved: " + msg );
-                  //var objP = $.parseJSON( msg );
-                  //alert(objP.ok + " * " + objP.mensaje + " * " + objP.div_content);
-                  if(objP.ok == 1){
-                    //$("#cont_" + div_cont ).html("<div class=\'alert alert-success\'>" + objP.mensaje + "</div>");
-                    $("#cont_" + div_cont).toggle(2000);
-                  }else {
-                    $("#cont_error_img").html(objP.mensaje);
-                    $("#cont_error_img").toggle("slow");
-                    $("#cont_error_img").delay(6000).toggle("slow");
-                  }
-                });');
-        $javas .= '}';
-        $javas .= '}';
-        $javas .= '</script>';
-        return $javas;
-    }
-    
-    public function getJavascriptSubirImagen(){
-        $javas = '<script>';
-        $javas .= ('function '.$this->_jsFuncionesImg['subir'].'(){');
-        $javas .= 'if($("#img_imagen").val().length < 3){ alert("El campo archivo esta vacio"); return false; }';
-        $javas .= 'var archivo = $("#img_imagen").val().split("."); ';
-        $J = array();
-        for($i = 0; $i < count($this->_extPermitidas) ; $i++){
-            $J[] = 'archivo[archivo.length - 1] == "' . $this->_extPermitidas[$i] . '"';
-        }
-        $javas .= ('if('.  implode(" || ", $J).'){ $("#img_form").submit(); }else{alert("Extension ." + archivo[archivo.length - 1] + " no permitida"); return false;}');
-        $javas .= '}'; // fin funcion
-        $javas .= '</script>';
-        return $javas;
-    }
-    /**
      * Procesar subida de archivo
      * @return boolean
      * @throws ImagenesException

@@ -189,34 +189,5 @@ class GenerarFormulario {
         return $html;
     }
     
-    public function getJavascriptFormulario(){
-        $javas = '<script>';
-        $javas .= 'function '.$this->_nomProcesarFormulario.'(nom_form){';
-        $javas .= 'var dataString = $("#" + nom_form).serialize();';
-        //$javas .= 'alert(dataString);';
-        $javas .= '$.ajax({
-            type: "POST",
-            url: "/clases/class.procesarFormulario.php",
-            data: dataString,
-            success: function(data) {
-                //alert(data.ok + " " + data.mensaje );
-                if(data.ok == "1"){
-                    $("#success-generico").html(data.mensaje);
-                    $("#modal-success-generico").modal("show");
-                    //$("#modal-success-generico").delay(5000).modal("hide");
-                    if(data.actualiza == -1){
-                        location.reload();
-                    }
-                }else{
-                    $("#danger-generico").html(data.mensaje);
-                    $("#danger-generico").toggle("slow");
-                    $("#danger-generico").delay(5000).toggle("slow");
-                }
-            }
-        });';
-        $javas .= '}';
-        $javas .= '</script>';
-        return $javas;
-    }
     
 }
