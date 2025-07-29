@@ -92,7 +92,7 @@ class Secciones extends DAOGeneral{
     /**
      * hace una consulta con los parametros establecidos en la clase
      */
-    public function consultar(){
+    public function consultar($opciones = []){
         $query = "select * from secciones WHERE ";
         $where = array();
         if($this->_idSeccion != null){
@@ -116,11 +116,11 @@ class Secciones extends DAOGeneral{
         $query .= implode(" AND ", $where);
         $con = ConexionSQL::getInstance();
         $id = $con->consultar($query);
-        if($res = $con->obenerFila($id)){
+        if($res = $con->obtenerFila($id)){
             $R = array();
             do{
                 $R[] = $this->_establecerSeccion($res);
-            }while($res = $con->obenerFila($id));
+            }while($res = $con->obtenerFila($id));
             return $R;
         }
     }
@@ -133,11 +133,11 @@ class Secciones extends DAOGeneral{
         $query = "SELECT * FROM secciones WHERE estado = 1 ORDER BY orden";
         $con = ConexionSQL::getInstance();
         $id = $con->consultar($query);
-        if($res = $con->obenerFila($id)){
+        if($res = $con->obtenerFila($id)){
             $R = array();
             do{
                 $R[] = $this->_establecerSeccion($res);
-            }while($res = $con->obenerFila($id));
+            }while($res = $con->obtenerFila($id));
             return $R;
         }
         return false;

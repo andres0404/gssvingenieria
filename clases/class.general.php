@@ -44,7 +44,7 @@ class General{
         $query = "SELECT * FROM general";
         $con = ConexionSQL::getInstance();
         $id = $con->consultar($query);
-        $res = $con->obenerFila($id);
+        $res = $con->obtenerFila($id);
         $this->_titulo = $res['tit_pagina'];
         $this->_lema = explode("|",$res['lema']);
         $this->_logo = $res['logo'];

@@ -19,6 +19,7 @@ class DAOGeneral {
     protected $_custom_where = '';
     private $_es_paginado = false;
     protected $_paginado_vars;
+    protected $_joins_result_collection = [];
 
     public function __construct() {
        
@@ -34,6 +35,15 @@ class DAOGeneral {
             $this->_limit[1] = $val2;
         }
     }
+    public function pushJoinsResultCollection($value){
+        $this->_joins_result_collection[] = $value;
+    }
+    /**
+     * Obtener array de resultados de un join 
+     */
+    public function getJoinsResultCollection(){
+        return $this->_joins_result_collection;
+    }
     /**
      * Establece los parametros para enviar una consulta con limit y order para paginacion
      * Use la funcion antes del metodo consultar pues esta hara un count antes de la consulta sin paginar para establecer el total de registros
@@ -45,7 +55,7 @@ class DAOGeneral {
             'total_registros' => 0
         ];
         if($this->_paginado_vars['page']){
-            $this->setLimit($this->_paginado_vars['page'], $this->_paginado_vars['per_page']);
+            $this->setLimit(($this->_paginado_vars['page']-1)*$this->_paginado_vars['per_page'], $this->_paginado_vars['per_page']);
         }
         if(isset($_GET['sort'])){
             $this->_ordenar = [$_GET['sort'] . " " . (isset($_GET['order']) && in_array($_GET['order'],['asc','desc']) ? $_GET['order'] : "asc")];
@@ -91,7 +101,7 @@ class DAOGeneral {
         return $this->_tabla;
     }
     /**
-     * Obtener primario
+     * Obtener nombre llave primaria
      * @return string
      */
     public function getPrimario(){
@@ -135,31 +145,39 @@ class DAOGeneral {
     }
     /**
      * 
-     * @return boolean|\clases_llamada
+     * @return boolean|DAOGeneral
+     * @opciones array Agregar opciones para hacer un join
      */
-    public function consultar() {
+    public function consultar($opciones = []) {
         $where = array();
         $select = array();
+        $joins = [];
         //for ($i = 0; $i < count($this->_mapa); $i++) {
         foreach($this->_mapa as $nom_campo => $arrAtributos){
             if ($this->{'_' . $nom_campo} !== null) {
-                $where[] = $nom_campo . " = '" . $this->{'_' . $nom_campo} . "'";
+                $where[] = "{$this->_tabla}.$nom_campo  = '" . $this->{'_' . $nom_campo} . "'";
             }
             if(isset($arrAtributos['sql']) && !empty($arrAtributos['sql'])){
-                $select[] = $arrAtributos['sql'] . " as " . $nom_campo;
+                $select[] = "{$arrAtributos['sql']} as {$this->_tabla}_$nom_campo";
             }else{
-                $select[] = $nom_campo;
+                $select[] = "{$this->_tabla}.$nom_campo AS {$this->_tabla}_$nom_campo";
+            }
+        }
+        if(isset($opciones['joins'])) {
+            foreach($opciones['joins'] as $_joins) {
+                $select[] = $_joins['tabla']->getTabla(). ".*";
+                $joins[] = $_joins['tipo'] . " JOIN " . $_joins['tabla']->getTabla() . " on {$_joins['on']}";
             }
         }
         if($this->_custom_where != ''){
             $where[] = $this->_custom_where;
         }
         if (count($where) == 0) {
-            $query = "select ".implode(",",$select)." from " . $this->_tabla . " where 1 ";
-            $queryTotalRegistros = "select count(*) total from "  . $this->_tabla . " where 1 "; // consulta para paginador
+            $query = "select ".implode(",",$select)." from {$this->_tabla} " . implode("", $joins) . " where 1 ";
+            $queryTotalRegistros = "select count(*) total from {$this->_tabla} " . implode("", $joins) . " where 1 "; // consulta para paginador
         } else {
-            $query = "select ".implode(",",$select)." from " . $this->_tabla . " where " . implode(" AND ", $where)." ";
-            $queryTotalRegistros = "select count(*) total from " . $this->_tabla . " where " . implode(" AND ", $where); // consulta para paginador
+            $query = "select ".implode(",",$select)." from {$this->_tabla} ". implode("", $joins) . " where " . implode(" AND ", $where)." ";
+            $queryTotalRegistros = "select count(*) total from {$this->_tabla} " . implode("", $joins) . " where " . implode(" AND ", $where); // consulta para paginador
         }
         // orden 
         if(isset($this->_ordenar) && is_array($this->_ordenar) && count($this->_ordenar) > 0){
@@ -172,20 +190,32 @@ class DAOGeneral {
         $con = ConexionSQL::getInstance();
         $id = $con->consultar($query);
         
-        if($res = $con->obenerFila($id)){
+        if($res = $con->obtenerFila($id)){
+            //print_r($res);
             $R = [];
+            $id_anterior = -1;
             $this->_fillRow($this, $res);
             do{
-                $clases_llamada = get_called_class();
-                $obj = new $clases_llamada()  ;
-                //foreach($this->_mapa as $nom_campo => $arrAtributos){
-                //    $obj->{'set_'.$nom_campo}($res[$nom_campo]);
-                //}
-                $R[] = $this->_fillRow($obj, $res);
-            } while($res = $con->obenerFila($id));
+                if($id_anterior !== $res[$this->getTabla() ."_" . $this->_primario]){
+                    $clases_llamada = get_called_class();
+                    $obj = new $clases_llamada()  ;
+                    $R[] = $this->_fillRow($obj, $res);
+                    $id_anterior = $res[$this->getTabla() ."_" . $this->_primario];
+                } 
+                if(isset($opciones['joins'])) {
+                    foreach($opciones['joins'] as $_joins) {
+                        if($res[$_joins['tabla']->getPrimario()] === null) {
+                            continue;
+                        }
+                        $clase_join = get_class($_joins['tabla']);
+                        $clase_aux = new $clase_join();
+                        $obj->pushJoinsResultCollection($this->_fillRow($clase_aux, $res, false));
+                    }
+                }
+            } while($res = $con->obtenerFila($id));
             if($this->_es_paginado){
                 $id = $con->consultar($queryTotalRegistros);
-                $res = $con->obenerFila($id);
+                $res = $con->obtenerFila($id);
                 $this->_paginado_vars['total_registros'] = $res['total'];
             }
             return $R;
@@ -193,14 +223,25 @@ class DAOGeneral {
         }
         return false;
     }
-    private function _fillRow($obj, $res){
-        foreach($this->_mapa as $nom_campo => $arrAtributos){
+    /**
+     * 
+     */
+    private function _fillRow($obj, $res, $usaAs = true){
+        foreach($obj->getMapa() as $nom_campo => $arrAtributos){
             switch($arrAtributos['tipodato']){
                 case 'lista-multiple-imagen':
-                    $obj->{'set_'.$nom_campo}(json_decode($res[$nom_campo]));
+                    if($usaAs){
+                        $obj->{'set_'.$nom_campo}(json_decode($res[$obj->getTabla()."_$nom_campo"] === null ?? ""));
+                    } else {
+                        $obj->{'set_'.$nom_campo}(json_decode($res["$nom_campo"] === null ?? ""));
+                    }
                     break;
                 default:
+                if($usaAs){
+                    $obj->{'set_'.$nom_campo}($res[$obj->getTabla() . "_" .$nom_campo]);
+                } else {
                     $obj->{'set_'.$nom_campo}($res[$nom_campo]);
+                }
             }
         }
         return $obj;
@@ -209,5 +250,6 @@ class DAOGeneral {
     public function get_obj_seccion(){
        return NULL; 
     }
+    
 
 }

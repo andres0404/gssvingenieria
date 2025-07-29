@@ -28,7 +28,7 @@ class DAO_Elementos extends DAOGeneral {
         'img' => array('tipodato' => 'lista-imagen', 'label' => 'IMAGEN'/*,'opciones' => array('fa-puzzle-piece','fa-clipboard','fa-trophy','fa-graduation-cap','fa-phone','fa-comment-o')*/),
         'orden' => array('tipodato' => 'varchar', 'label' => 'ORDEN'),
         'estado' => array('tipodato' => 'boolean', 'label' => 'ESTADO'),
-        'complemento' => array('tipodato' => 'boolean', 'label' => 'TIENE COMPLEMENTO')
+        'complemento' => array('tipodato' => 'boolean', 'label' => 'TIENE COMPLEMENTO'),
     );
     protected $_primario = 'id_elemen';
     /**
@@ -45,9 +45,9 @@ class DAO_Elementos extends DAOGeneral {
     /**
      * Consulta la cosa
      */
-    public function consultar() {
+    public function consultar($opciones = []) {
         
-        $R = parent::consultar();
+        $R = parent::consultar($opciones);
         if($this->_objSeccion instanceof DAO_Secciones && is_array($R)){
             foreach($R as $key => $objElem){
                 $R[$key]->set_obj_seccion($this->_objSeccion);

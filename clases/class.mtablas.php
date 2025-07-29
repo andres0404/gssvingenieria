@@ -1,10 +1,6 @@
 <?php
 include_once __DIR__.'/class.conexion.php';
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 class MTablas {
     
@@ -20,6 +16,7 @@ class MTablas {
      * @param type $idTabla
      * @param type $idDato
      * @param type $tipReturn modifica tipo de array devuelto 1: array(id_dato => valor) 2: array(valor => valor) 3: array(id_dato => id_dato)
+     * @return Array
      */
     public static function getTablaCheckBox($idTabla, $idDato = null, $tipReturn = 1) {
         $obj = new self();
@@ -51,10 +48,11 @@ mt_tablas b
 WHERE a.id_mgeneral = {$this->_idTabla}
 AND a.estado = 1
 AND a.id_mgeneral  = b.id_mgeneral 
-AND b.estado = 1";
+AND b.estado = 1
+ORDER BY id_valor desc";
         $con = ConexionSQL::getInstance();
         $id = $con->consultar($query);
-        if($res = $con->obenerFila($id)){
+        if($res = $con->obtenerFila($id)){
             $R = array();
             do{
                 $aux = array();
@@ -64,7 +62,7 @@ AND b.estado = 1";
                     }
                 }
                 $R[] = $aux;
-            }while($res = $con->obenerFila($id));
+            }while($res = $con->obtenerFila($id));
             return $R;
         }
         return false;

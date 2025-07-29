@@ -33,6 +33,7 @@ class DAO_ComplementoElemento extends DAOGeneral {
 
     function set_img_path($_img_path) {
         $this->_img_path = $_img_path;
+        return $this;
     }
 
     function get_id_comp_e() {
@@ -55,9 +56,6 @@ class DAO_ComplementoElemento extends DAOGeneral {
         return $this->_comp_texto;
     }
 
-    function get_tabla() {
-        return $this->_tabla;
-    }
 
     function set_id_comp_e($_id_comp_e) {
         $this->_id_comp_e = $_id_comp_e;
@@ -84,10 +82,7 @@ class DAO_ComplementoElemento extends DAOGeneral {
         return $this;
     }
 
-    function set_tabla($_tabla) {
-        $this->_tabla = $_tabla;
-        return $this;
-    }
+
 
 
 }

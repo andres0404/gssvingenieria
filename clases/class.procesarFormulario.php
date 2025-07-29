@@ -5,6 +5,7 @@ if(isset($_POST['form_clase']) && !empty($_POST['form_clase'])){
     include_once __DIR__.'/DAO/DAO_Secciones.php';
     include_once __DIR__.'/DAO/DAO_elementos.php';
     include_once __DIR__.'/DAO/DAO_ComplementoElemento.php';
+    include_once __DIR__.'/DAO/DAO_CaracteristicasElemento.php';
     include_once __DIR__.'/DAO/DAO_General.php';
     // preparar campos de formulario
     $data = array();

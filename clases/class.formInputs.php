@@ -64,7 +64,7 @@ class FormInput{
      */
     public static function campoEstatico($nameValor,$nombre = '',$valor = ''){
         $html = '<div class="form-group">';
-        $hmtl .= empty($nombre) ? '' : ( '<label>'.$nombre.'</label>');
+        $html .= empty($nombre) ? '' : ( '<label>'.$nombre.'</label>');
         $html .= ( '<p class="form-control-static">'.$valor.'<input type="hidden" name="'.$nameValor.'" value="'.$nameValor.'"></p>');
         $html .= '</div>';
         return $html;
@@ -116,10 +116,10 @@ class FormInput{
      * @param string $nameValor string en el atributo name
      * @param string $idValor string en el atributo id
      * @param string $nombreCombo Nombre del conjunto de botones radio
-     * @param string $valores Valores de los botones radio: array(valor => label)
+     * @param array $valores Valores de los botones radio: array(valor => label)
      * @param type $chequeado Incluir el valor del campo a chequear
      */
-    public static function campoRadioEnLinea($nameValor, $idValor, $nombreCombo = '', $valores = array(), $chequeado = ''){
+    public static function campoRadioEnLinea($nameValor, $idValor, $nombreCombo = '', $valores = [], $chequeado = ''){
         $html = '<div class="form-group"><label>'.$nombreCombo.'</label> ';
         $aux = array();
         foreach($valores as $valor => $label){
@@ -131,10 +131,10 @@ class FormInput{
     }
     /**
      * Campo de seleccion
-     * @param type $nameValor
-     * @param type $idValor
-     * @param type $nombre
-     * @param type $valores
+     * @param string $nameValor
+     * @param string $idValor
+     * @param string $nombre
+     * @param array $valores
      * @param string $valSeleccionado valor seleccionado en el campo
      * @param type $chequeado
      * @return string

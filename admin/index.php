@@ -15,6 +15,7 @@ include_once __DIR__.'/../clases/class.seccion.php';
 include_once __DIR__.'/../clases/class.contactenos.php';
 include_once __DIR__.'/../clases/DAO/DAO_Secciones.php';
 include_once __DIR__.'/../clases/DAO/DAO_elementos.php';
+include_once __DIR__.'/../clases/DAO/DAO_CaracteristicasElemento.php';
 include_once __DIR__.'/../clases/class.formulario.php';
 include_once __DIR__.'/../clases/class.paginador.php';
 
@@ -257,6 +258,7 @@ $dataMenu = $objMenu->getSecciones();
             <div class="container-fluid">
                 <!-- Page Heading -->
                 <?php
+                // TITULOS SECCIONES
                 $titulo = $_objSeccion->get_nom_seccion();
                 $subTitulo = $_objSeccion->get_subtitulo();
                 $faIcono = $_objSeccion->get_icono();
@@ -335,7 +337,7 @@ $dataMenu = $objMenu->getSecciones();
                             ?>
                         </div>   
                         <?php
-                        }else{
+                        }else{ // Secciones dinamicas desde BD
                         ?>
                         <div class="col-lg-3">
                         <?php
@@ -351,7 +353,6 @@ $dataMenu = $objMenu->getSecciones();
                                 <h3 class="panel-title" onclick="toogleElemento('#cont_ele_nuevo');" style="cursor: pointer;">Nuevo</h3>
                             </div>
                             <div class="panel-body" style="display: none;" id="cont_ele_nuevo"> 
-                                Panel content 
                                 <?php
                                 $_objElemNuevo = new DAO_Elementos();
                                 $_objElemNuevo->set_obj_seccion($_objSeccion);
@@ -362,10 +363,15 @@ $dataMenu = $objMenu->getSecciones();
                         </div>
                         <?php
                         // ---- listado de elementos de seccion
+                        $joins = [
+                            'joins' => [
+                                 ['tipo' => 'left','tabla' => new DAO_CaracteristicasElemento(), 'on' => 'elementos.id_elemen = caracteristicas_elemento.id_elemen']
+                            ]
+                        ];
                         $objElemento = new DAO_Elementos();
                         $objElemento->set_obj_seccion($_objSeccion);
                         $objElemento->setPaginacion();
-                        $arrElem = $objElemento->consultar();
+                        $arrElem = $objElemento->consultar($joins);
                         $objPaginador = new Paginador();
                         $objPaginador->preparar($objElemento);
                         echo $objPaginador->getHtml();
@@ -389,6 +395,45 @@ $dataMenu = $objMenu->getSecciones();
                                 }
                                 //$_objForm->conLabel();
                                 echo $_objForm->obtenerFormulario(!empty($valor) ? $valor : FALSE );
+                                // Panel para introducir nueva caractgeristica al elemento
+                                if($_objSeccion->get_caracteristicas() === 1) {
+                                    $toggle_name = 'elemento_carac_nuevo_' . $objE->get_id_elemen();
+?>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" onclick="toogleElemento('#<?= $toggle_name;?>');" style="cursor: pointer;">Nueva Caracter&iacute;stica</h3>
+                                    </div>
+                                    <div class="panel-body" style="display: none;" id="<?= $toggle_name;?>"> 
+                                    <p>La información que agregará a continuación se añadirá como características o atributos del proyecto que serán utilizados 
+                                    por el buscador de proyectos en la página principal</p>
+                                        <?php
+                                        $_objElemCNuevo = new DAO_CaracteristicasElemento();
+                                        $_objElemCNuevo->set_id_elemen($objE->get_id_elemen());
+                                        $_objForm->setDAO($_objElemCNuevo);
+                                        echo $_objForm->obtenerFormulario();
+                                        ?>
+                                    </div>
+                                </div>
+<?php
+                                }
+                                $objJoins = $objE->getJoinsResultCollection();
+                                if(count($objJoins) > 0 ) { // Generar formulario adicional con elementos del join
+                                    //print_r($objJoins);
+                                    $objJoinForm = new GenerarFormulario();
+                                    foreach($objJoins as $objJoin) {
+                                        $objJoinForm->setDAO($objJoin);?>
+                                        <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                        <h3 class="panel-title" style="cursor: pointer;" onclick="toogleElemento('#cont_elem_c_<?php echo $objJoin->get_id_carac_e() ?>')"><span class="caret"></span> Carater&iacute;stica <?php echo $objJoin->get_id_carac_e(); ?> <span style="color: #bbbbbb; font-size: 0.8em;"></span></h3>
+                                        </div>
+                                            <div class="panel-body" id="cont_elem_c_<?php echo $objJoin->get_id_carac_e(); ?>" style="display: none;">
+<?php
+                                        echo $objJoinForm->obtenerFormulario();?>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                }
                                 ?></div>
                             </div>
                             <?php

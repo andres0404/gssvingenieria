@@ -21,6 +21,8 @@ class GenerarFormulario {
     private $_objDAOModal;
     
     private $_editarId = false;
+
+    private $_mTablasData;
     
     
     /*
@@ -38,13 +40,23 @@ class GenerarFormulario {
      */
     public function setDAO(DAOGeneral $objDAO){
         $this->_objDAO = $objDAO;
+        $this->_getMTablasData();
     }
     
     public function setDAOModal(DAOGeneral $objDAOModal){
         $this->_objDAOModal = $objDAOModal;
     }
-   
-    
+    /**
+     * Verifica si la clase DAO requiere un campo multiple cuyos valores estan en maestro de tablas y los trae si no los tiene ya
+     */ 
+    private function _getMTablasData(){
+        $mapa = $this->_objDAO->getMapa();
+        foreach($mapa as $atributos) {
+            if(isset($atributos['maestro_tablas']) && !isset($this->_mTablasData[$atributos['maestro_tablas']])){
+                $this->_mTablasData[$atributos['maestro_tablas']] = MTablas::getTablaCheckBox($atributos['maestro_tablas']);
+            }
+        }
+    }
     
     /**
      * obtener formulario
@@ -138,6 +150,9 @@ class GenerarFormulario {
                     //$html .= FormInput::campoChequeo($form.$separador.$campo,$form.$separador.$campo,isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, 1, $this->_objDAO->{'get_'.$campo}() );
                     $html .= FormInput::campoRadioEnLinea($form.$separador.$campo, $form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, array('1'=>'On','0'=>'Off'), $this->_objDAO->{'get_'.$campo}());
                     //$html .= '</div>';
+                    break;
+                case 'lista_mt':
+                    $html .= FormInput::campoSeleccion($form.$separador.$campo,isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo,$this->_mTablasData[$arrAtributo['maestro_tablas']],$this->_objDAO->{'get_'.$campo}());
                     break;
                 case 'date':
                     break;

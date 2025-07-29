@@ -94,7 +94,7 @@ class ConexionSQL{
      * @param type $id
      * @return type
      */
-    public function obenerFila($id) {
+    public function obtenerFila($id) {
         
         if(!empty($id)){
             //return mysqli_fetch_array($id, MYSQL_ASSOC);

@@ -14,6 +14,7 @@ class DAO_Secciones extends DAOGeneral{
     protected $_orden;
     protected $_img_path;
     protected $_icono;
+    protected $_caracteristicas;
     
 
     protected $_tabla = 'secciones';
@@ -24,7 +25,8 @@ class DAO_Secciones extends DAOGeneral{
         'orden' => array('tipodato' => 'integer','label' => 'ORDEN'),
         'img_path' => array('tipodato' => 'varchar','label' => 'CARPETA IMAGENES', 'ayuda' => 'Carpeta donde se guardaran las imagenes. Ej.: <em>img/imagenes</em> (o use <b><em>:n</em></b>, donde <em><b>n</em></b> es el numero de la tabla maestra cuyos datos llenaran el listado)'),
         'icono' => array('tipodato' => 'varchar','label' => 'ICONO', 'ayuda' => 'Icono de la secci&oacute;n', 'opciones' => array('fa-puzzle-piece'=>'fa-puzzle-piece','fa-clipboard'=>'fa-clipboard','fa-trophy'=>'fa-trophy','fa-graduation-cap'=>'fa-graduation-cap','fa-phone'=>'fa-phone','fa-comment-o'=>'fa-comment-o') ) ,
-        'estado' => array('tipodato' => 'boolean','label' => 'ESTADO')
+        'estado' => array('tipodato' => 'boolean','label' => 'ESTADO'),
+        'caracteristicas' => array('tipodato' => 'boolean', 'label' => 'TIENE CARACTERÍSTICAS')
     );
     protected $_primario = 'id_seccion';
     
@@ -96,6 +98,14 @@ class DAO_Secciones extends DAOGeneral{
 
     function set_icono($_icono) {
         $this->_icono = $_icono;
+        return $this;
+    }
+    function get_caracteristicas() {
+        return $this->_caracteristicas;
+    }
+
+    function set_caracteristicas($_caracteristicas) {
+        $this->_caracteristicas = $_caracteristicas;
         return $this;
     }
 
