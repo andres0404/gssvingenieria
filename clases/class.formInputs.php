@@ -132,20 +132,25 @@ class FormInput{
     /**
      * Campo de seleccion
      * @param string $nameValor
-     * @param string $idValor
      * @param string $nombre
      * @param array $valores
      * @param string $valSeleccionado valor seleccionado en el campo
-     * @param type $chequeado
+     * @param string $ayuda
      * @return string
      */
-    public static function campoSeleccion($nameValor, $nombre = '', $valores = array(), $valSeleccionado = '', $ayuda = ''){
+    public static function campoSeleccion($nameValor, $nombre = '', $valores = [], $valSeleccionado = '', $ayuda = '', $seleccioneLabelOption = -1){
         $html = '<div class="form-group">';
-        $html .= (empty($nombre) ? '' : ( '<label>'.$nombre.'</label>'));
+        $html .= (empty($nombre) ? '' : ( '<label for="'.$nameValor.'">'.$nombre.'</label>'));
         $html .= ('<select class="form-control" name="'.$nameValor.'" id="'.$nameValor.'">');
+        if($seleccioneLabelOption !== null){
+            $valores[-1] = "- Seleccione -";
+        }
         foreach($valores as $valor => $label){
             $selected = '';
-            if($valor == $valSeleccionado){
+            if($valor == $seleccioneLabelOption && ($valSeleccionado === null || $valSeleccionado == '') ){
+                $selected = 'selected="selected"';
+            }
+            else if($valor == $valSeleccionado){
                 $selected = 'selected="selected"';
             }
             $html .= ('<option value="'.$valor.'" '.$selected.' >'.$label.'</option>');

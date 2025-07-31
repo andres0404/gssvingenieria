@@ -6,10 +6,9 @@ class MTablas {
     
     private $_idTabla;
     private $_idDato;
+    private static $_mTablaData = [];
     
-    public function __construct() {
-        ;
-    }
+    public function __construct() {}
     
     /**
      * Devuelve un array del tipo array(id_dato => valor)
@@ -19,24 +18,97 @@ class MTablas {
      * @return Array
      */
     public static function getTablaCheckBox($idTabla, $idDato = null, $tipReturn = 1) {
-        $obj = new self();
-        $obj->_idTabla = $idTabla;
-        $obj->_idDato = $idDato;
-        if(!$R = $obj->_consultar()){
-            return array();
+        if(!self::estaEnCache($idTabla)){
+            self::_getTablaFromDB($idTabla, $idDato);
+        } 
+        if($tipReturn == 1){
+            return self::$_mTablaData[$idTabla];
         }
-        $checkArray = array();
-        for($i = 0; $i < count($R) ; $i++){
-            if($tipReturn == 1){
-                $checkArray[$R[$i]['id_valor']] = $R[$i]['valor'];
-            }else if($tipReturn == 2){
-                $checkArray[$R[$i]['valor']] = $R[$i]['valor'];
+        $checkArray = [];
+        foreach(self::$_mTablaData[$idTabla] as $id_valor => $valor){
+            if($tipReturn == 2){
+                $checkArray[$valor] = $valor;
             }else{
-                $checkArray[$R[$i]['id_valor']] = $R[$i]['id_valor'];
+                $checkArray[$id_valor] = $id_valor;
             }
         }
         return $checkArray;
     }
+
+    private static function _getTablaFromDB($idTabla, $idDato = null) {
+        $obj = new self();
+        $obj->_idTabla = $idTabla;
+        $obj->_idDato = $idDato;
+        if(!$R = $obj->_consultar()){
+            return null;
+        }
+        foreach ($R as $result){
+            self::$_mTablaData[$idTabla][$result['id_valor']] = $result['valor'];
+        }
+        //print_r(self::$_mTablaData[$idTabla]);
+    }
+    
+    /**
+     * Obtiene el valor de un código específico (método optimizado)
+     * @param int $idTabla
+     * @param int $codigo
+     * @return string|null
+     */
+    public static function getValor($idTabla, $codigo) {
+        // Asegura que los datos estén en cache
+        if(!self::estaEnCache($idTabla)){
+            if(!self::_getTablaFromDB($idTabla)){
+                return null;
+            }
+        }
+        // Busca el valor en el cache
+        return self::$_mTablaData[$idTabla][$codigo] ?? null;
+    }
+    
+    /**
+     * Obtiene el código de un valor específico (método optimizado)
+     * @param int $idTabla
+     * @param string $valor
+     * @return int|null
+     */
+    public static function getCodigo($idTabla, $valor) {
+        // Asegura que los datos estén en cache
+        if(!self::estaEnCache($idTabla)){
+            if(!self::_getTablaFromDB($idTabla)){
+                return null;
+            }
+        }
+        
+        // Busca el código en el cache
+        foreach(self::$_mTablaData[$idTabla] as $id_valor => $item){
+            if($valor == $item){
+                return $id_valor;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Limpia el cache de una tabla específica (útil para actualizaciones)
+     * @param int $idTabla
+     */
+    public static function limpiarCache($idTabla = null) {
+        if($idTabla === null){
+            self::$_mTablaData = [];
+        } else {
+            unset(self::$_mTablaData[$idTabla]);
+        }
+    }
+    
+    /**
+     * Verifica si una tabla está en cache
+     * @param int $idTabla
+     * @return bool
+     */
+    public static function estaEnCache($idTabla) {
+        return isset(self::$_mTablaData[$idTabla]);
+    }
+    
     /**
      * Cosultar maestro de tablas
      * @return boolean

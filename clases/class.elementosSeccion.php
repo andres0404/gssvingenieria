@@ -3,6 +3,8 @@
 include_once __DIR__ . '/DAO/DAO_elementos.php';
 include_once __DIR__ . '/DAO/DAO_ComplementoSeccion.php';
 include_once __DIR__ . '/DAO/DAO_ComplementoElemento.php';
+include_once __DIR__ . '/DAO/DAO_CaracteristicasElemento.php';
+include_once __DIR__.'/class.mtablas.php';
 include_once __DIR__ . '/DAO/DAO_Clientes.php';
 /*
  * 
@@ -29,21 +31,19 @@ class Elementos {
     public function getHtmlElemento(Secciones $Seccion) {
         $this->_seccion = $Seccion;
         $idSeccion = $this->_seccion->get_idSeccion();
+        $joins = [
+            'joins' => [
+                 ['tipo' => 'left','tabla' => new DAO_CaracteristicasElemento(), 'on' => 'elementos.id_elemen = caracteristicas_elemento.id_elemen']
+            ]
+        ];
         $objDAO = new DAO_Elementos();
         $objDAO->habilita1ResultadoEnArray();
         $objDAO->set_id_seccion($idSeccion);
         $objDAO->set_estado(1);
-        $arrObj  = $objDAO->consultar();
+        $arrObj  = $objDAO->consultar($joins);
+        $html = "";
         switch ($idSeccion) {
             case 1: // 
-                $html = '<script>'
-                . 'function abre_cierra_servicio(id){'
-                . '     $("#servi_txt_" + id).slideToggle("fast", '
-                . '         function(){ '
-                . '             if(  $("#servi_txt_" + id).css("display") == "none" ){  '
-                . '$("#servi_" + id).removeClass("fa fa-chevron-circle-up fa-stack").addClass("fa fa-chevron-circle-down fa-stack");}else{ $("#servi_" + id).removeClass("fa fa-chevron-circle-down fa-stack").addClass("fa fa-chevron-circle-up fa-stack");}'
-                . '     });'
-                . '}</script>';
                 $html .= $this->_getServicios($arrObj);
                 break;
             case 2:// proyectos
@@ -86,22 +86,58 @@ class Elementos {
     }
     /**
      * 
-     * @param type $arrObj
+     * @param array $arrObj
      */
     private function _getPortafolio($arrObj){
-        $arrHtml = array();
+        $arrHtml = [];
+        $arrHtmlModal = [];
         //print_r($arrObj);
+        $color_labels = [
+            2 => 'label-default',
+            3 => 'label-primary',
+            4 => 'label-success',
+            5 => 'label-info',
+            6 => 'label-warning',
+        ];
         for($i = count($arrObj)-1 ; $i >= 0 ; $i--){
+            $cssLabels = [];
+            $dataHtmlLabels = [];
+            $joins = $arrObj[$i]->getJoinsResultCollection();
+            $joins_count = count($joins);
+            if($joins_count > 0) {
+                foreach($joins as $join){
+                    if($join->get_estado() == 0 || $join->get_estado() === null){
+                        continue;
+                    }
+                    $mapa = $join->getMapa();
+                    foreach($mapa as $nom_campo => $atributos) {
+                        if(isset($atributos['maestro_tablas']) && $join->{'get_' . $nom_campo}() != ''){
+                            $cssLabels[$atributos['maestro_tablas']][$join->{'get_' . $nom_campo}()] = '<span class="label '.$color_labels[$atributos['maestro_tablas']].'">'.MTablas::getValor($atributos['maestro_tablas'],$join->{'get_' . $nom_campo}()).'</span>';
+                            $dataHtmlLabels[$nom_campo][] = $join->{'get_' . $nom_campo}();
+                        }
+                    }
+                }
+            }
+            $label = "";
+            foreach($cssLabels as $caracte) {
+                foreach($caracte as $ca){
+                    $label .= $ca . PHP_EOL;
+                }
+            }
+            $dataLabels = '';
+            foreach($dataHtmlLabels as $dataLabel => $codes) {
+                $dataLabels .= "data-$dataLabel=\"[" . implode(",", array_unique($codes)) . "]\"";
+            }
             $complement = $arrObj[$i]->get_complemento();
             $a = '';
             $a_close = '';
             $cruz = '<i class="fa fa-minus fa-3x"></i>';
             if($complement == 1){
-                $a = '<a href="#portfolioModal'.($i+1).'" class="portfolio-link" data-toggle="modal">';
+                $a = '<a href="#portfolioModal'.$arrObj[$i]->get_id_elemen().'" class="portfolio-link" data-toggle="modal">';
                 $a_close = '</a>';
                 $cruz = '<i class="fa fa-plus fa-3x"></i>';
             }
-            $arrHtml[] = '<div class="col-md-3  portfolio-item" style="justify-content: center;display: flex;flex-wrap: wrap;align-content:flex-start;">'.($a).'
+            $arrHtml[] = '<div class="col-md-3  portfolio-item" '.$dataLabels.' style="justify-content: center;display: flex;flex-wrap: wrap;align-content:flex-start;">'.($a).'
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 '.($cruz).' 
@@ -117,87 +153,88 @@ class Elementos {
                         <p class="text-muted">'.$arrObj[$i]->get_texto().'</p>
                     </div>
                 </div>';
+            $arrHtmlModal[] = $this->_getPortafolioModal($arrObj[$i], $label);
         }
-        $arrHtml[] = $this->_getPortafolioModal($arrObj);
-        $container = '<div style="display:flex;flex-wrap:wrap">' . implode("\n", $arrHtml) . '</div>';
+        $container = '<div style="display:flex;flex-wrap:wrap">' . implode("\n", array_merge($arrHtml, $arrHtmlModal)) . '</div>';
         return $container;
     }
     /**
      * 
-     * @param type $arrObj
-     * @return type
+     * @param DAO_Elementos $arrObj
+     * @return string
      */
-    private function _getPortafolioModal($arrObj){
-        $arrHtml = array();
-        //print_r($arrObj);
-        for($i = 0 ; $i < count($arrObj); $i++){
-            $_objComp = new DAO_ComplementoElemento();
-            $_objComp->set_id_elemen($arrObj[$i]->get_id_elemen());
-            $_objComp->consultar();
-            $id = $_objComp->get_id_elemen();
-            if(empty($id)){
-                continue;
-            }
-            $func_imagen = function () use ($_objComp){
-                $html = '';
-                $indicators = '';
-                $slides = '';
-                $id_carousel = 'carousel-example-generic-' . $_objComp->get_id_comp_e();
-                if(is_array($_objComp->get_comp_img())){
-                    $img = $_objComp->get_comp_img();
-                    $countImg = count($img);
-                    if($countImg > 1){
-                        for($i = 0; $i < count($img) ; $i++){
-                            $indicators .= ('<li style="border-color:black;" data-target="#' .$id_carousel. '" data-slide-to="'.$i.'" ' . ($i == 0 ? 'class="active"' : '') .'></li>');
-                            $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'" style="height: 100%;">
-                            <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="" class="carousel-img">
-                            </div>';
-                        }
-                        $html .= '<div id="' .$id_carousel. '" class="carousel slide" data-ride="carousel">';
-                        $html .= ('<ol class="carousel-indicators">'.$indicators.'</ol>');
-                        $html .= '<div class="carousel-inner carouse-inner-custom" role="listbox" >';
-                        $html .= $slides;
-                        $html .= '</div>';
-                        $html .= '<a class="left carousel-control carousel-custom-control"  href="#' .$id_carousel. '" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="right carousel-control carousel-custom-control"  href="#' .$id_carousel. '" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>';
-                        $html .= '</div>';
-                    } else {
-                        $html .= '<img class="img-responsive img-centered" src="'.$this->_seccion->get_img_path().$img[0].'" alt="">';
+    private function _getPortafolioModal($arrObj, $labels){
+        $Html = '';
+
+            
+        $_objComp = new DAO_ComplementoElemento();
+        $_objComp->set_id_elemen($arrObj->get_id_elemen());
+        $_objComp->consultar();
+        $id = $_objComp->get_id_elemen();
+        if(empty($id)){
+            return [];
+        }
+        $func_imagen = function () use ($_objComp){
+            $html = '';
+            $indicators = '';
+            $slides = '';
+            $id_carousel = 'carousel-example-generic-' . $_objComp->get_id_comp_e();
+            if(is_array($_objComp->get_comp_img())){
+                $img = $_objComp->get_comp_img();
+                $countImg = count($img);
+                if($countImg > 1){
+                    for($i = 0; $i < count($img) ; $i++){
+                        $indicators .= ('<li style="border-color:black;" data-target="#' .$id_carousel. '" data-slide-to="'.$i.'" ' . ($i == 0 ? 'class="active"' : '') .'></li>');
+                        $slides .= '<div class="item ' . ($i == 0 ? 'active' : '') .'" style="height: 100%;">
+                        <img src="'.$this->_seccion->get_img_path().$img[$i].'" alt="" class="carousel-img">
+                        </div>';
                     }
+                    $html .= '<div id="' .$id_carousel. '" class="carousel slide" data-ride="carousel">';
+                    $html .= ('<ol class="carousel-indicators">'.$indicators.'</ol>');
+                    $html .= '<div class="carousel-inner carouse-inner-custom" role="listbox" >';
+                    $html .= $slides;
+                    $html .= '</div>';
+                    $html .= '<a class="left carousel-control carousel-custom-control"  href="#' .$id_carousel. '" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control carousel-custom-control"  href="#' .$id_carousel. '" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+        </a>';
+                    $html .= '</div>';
+                } else {
+                    $html .= '<img class="img-responsive img-centered" src="'.$this->_seccion->get_img_path().$img[0].'" alt="">';
                 }
-                return $html;
-            };
-            $arrHtml[] = '<div class="portfolio-modal modal fade" id="portfolioModal'.($i+1).'" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-content">
-                <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl">
-                        </div>
+            }
+            return $html;
+        };
+        $Html .= '<div class="portfolio-modal modal fade" id="portfolioModal'.($arrObj->get_id_elemen()).'" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
                     </div>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="modal-body">
-                                <!-- Project Details Go Here -->
-                                <h2>'.$arrObj[$i]->get_titulo().'</h2>
-                                <p class="item-intro text-muted">'.$_objComp->get_comp_subtitulo().'</p>
-                                '.$func_imagen().$_objComp->get_comp_texto().'
-                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
-                            </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2>'.$arrObj->get_titulo().'</h2>
+                            <p class="item-intro text-muted">'.$_objComp->get_comp_subtitulo().'</p>
+                            <p>' . $labels.'</p>
+                            '.$func_imagen().$_objComp->get_comp_texto().'
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>';
-        }
-        return implode("\n", $arrHtml);
+        </div>
+    </div>';
+      
+        return $Html;
     }
     
     
@@ -224,7 +261,7 @@ class Elementos {
     }
     /**
      * 
-     * @param type $arrObj
+     * @param array $arrObj
      * @return type
      */
     private function _getEquipo($arrObj){
@@ -299,5 +336,7 @@ class Elementos {
         return $con->consultar($query);
     }
     */
-
+    public function _getContacto() {
+        return;
+    }
 }

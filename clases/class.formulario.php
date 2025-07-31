@@ -40,7 +40,7 @@ class GenerarFormulario {
      */
     public function setDAO(DAOGeneral $objDAO){
         $this->_objDAO = $objDAO;
-        $this->_getMTablasData();
+        //$this->_getMTablasData();
     }
     
     public function setDAOModal(DAOGeneral $objDAOModal){
@@ -63,7 +63,11 @@ class GenerarFormulario {
      */
     public function obtenerFormulario($conModal = false){
         $primario = $this->_objDAO->getPrimario();
-        $form = "F".$this->_objDAO->getTabla().$this->_objDAO->{'get_'.$primario}();
+        $str_p = $this->_objDAO->{'get_'.$primario}();
+        if($this->_objDAO->{'get_'.$primario}() === null){
+            $str_p = md5(rand(0, 10000));
+        }
+        $form = "F".$this->_objDAO->getTabla().$str_p;
         $mapa = $this->_objDAO->getMapa();
         $separador = "|";
         $html = '';
@@ -127,32 +131,18 @@ class GenerarFormulario {
             };
             switch ($arrAtributo['tipodato']){
                 case 'varchar':
-                    //$html .= '<div class="form-group">';
-                    //$html .= $this->_conLabel ? ('<label>'.$campo.'</label>') : '';
                     $html .= FormInput::campoTexto($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $this->_objDAO->{'get_'.$campo}(), true, isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '') ;
-                    //$html .= '</div>';
                     break;
                 case 'integer':
-                    //$html .= '<div class="form-group">';
-                    //$html .= $this->_conLabel ? ('<label>'.$campo.'</label>') : '';
                     $html .= FormInput::campoTexto($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $this->_objDAO->{'get_'.$campo}(), true, isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '') ;
-                    //$html .= '</div>';
                     break;
                 case 'text':
-                    //$html .= '<div class="form-group">';
-                    //$html .= $this->_conLabel ? ('<label>'.$campo.'</label>') : '';
-                    $html .= FormInput::campoAreaTexto($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $this->_objDAO->{'get_'.$campo}(), true, isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');
-                    //$html .= '</div>';
-                    break;
+                    $html .= FormInput::campoAreaTexto($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $this->_objDAO->{'get_'.$campo}(), true, isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');                    break;
                 case 'boolean':
-                    //$html .= '<div class="form-group">';
-                    //$html .= $this->_conLabel ? ('<label>'.$campo.'</label>') : '';
-                    //$html .= FormInput::campoChequeo($form.$separador.$campo,$form.$separador.$campo,isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, 1, $this->_objDAO->{'get_'.$campo}() );
                     $html .= FormInput::campoRadioEnLinea($form.$separador.$campo, $form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, array('1'=>'On','0'=>'Off'), $this->_objDAO->{'get_'.$campo}());
-                    //$html .= '</div>';
                     break;
                 case 'lista_mt':
-                    $html .= FormInput::campoSeleccion($form.$separador.$campo,isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo,$this->_mTablasData[$arrAtributo['maestro_tablas']],$this->_objDAO->{'get_'.$campo}());
+                    $html .= FormInput::campoSeleccion($form.$separador.$campo,isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, MTablas::getTablaCheckBox($arrAtributo['maestro_tablas']),$this->_objDAO->{'get_'.$campo}());
                     break;
                 case 'date':
                     break;

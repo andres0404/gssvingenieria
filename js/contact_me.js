@@ -7,6 +7,10 @@ $(function() {
         },
         submitSuccess: function($form, event) {
             event.preventDefault(); // prevent default submit behaviour
+            if($form[0].id == "filtroForm"){
+                aplicarFiltros();
+                return;
+            }
             // get values from FORM
             var name = $("input#name").val();
             var email = $("input#email").val();

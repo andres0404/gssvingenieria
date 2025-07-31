@@ -24,3 +24,13 @@ function enviarFormContactenos(){
       }
     });
 }
+function abre_cierra_servicio(id){
+     $("#servi_txt_" + id).slideToggle("fast", 
+         function(){ 
+            if(  $("#servi_txt_" + id).css("display") == "none" ){  
+                $("#servi_" + id).removeClass("fa fa-chevron-circle-up fa-stack").addClass("fa fa-chevron-circle-down fa-stack");
+            }else{ 
+              $("#servi_" + id).removeClass("fa fa-chevron-circle-down fa-stack").addClass("fa fa-chevron-circle-up fa-stack");
+            }
+     });
+}

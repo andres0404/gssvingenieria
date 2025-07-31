@@ -5,7 +5,7 @@ include_once __DIR__.'/DAO/DAO_Usuarios.php';
 class Login{
     
     protected $_pw_concat = "1596*.";
-    private $_url = "/admin/index.php";
+    private $_url = "/admin/index.php?idsec=-2";
 
     private $_usuario;
     private $_clave;

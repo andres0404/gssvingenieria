@@ -1,6 +1,7 @@
 <?php
 include_once 'class.conexion.php';
 include_once 'class.elementosSeccion.php';
+include_once 'class.panelFiltro.php';
 
 /* 
  * Plantillas
@@ -98,6 +99,7 @@ class Plantillas {
      */
     private function _getPortafolio(){
         $objElem = new Elementos();
+        $objFiltro = new PanelFiltro();
         $html = '<!-- Portfolio Grid Section -->
     <section id="'.$this->_objSeccion->get_anclaSeccion().'" class="'.$this->_getClassGris().'">
         <div class="container">
@@ -107,6 +109,7 @@ class Plantillas {
                     <h3 class="section-subheading text-muted">'.$this->_objSeccion->get_subtitulo().'</h3>
                 </div>
             </div>
+        '.$objFiltro->getHtmlPanelFilto().'
             <div class="row">
                 '.$objElem->getHtmlElemento($this->_objSeccion).'
             </div>
@@ -114,6 +117,7 @@ class Plantillas {
     </section>';
         return $html;
     }
+
     /**
      * 
      * @return type

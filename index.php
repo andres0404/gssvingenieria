@@ -39,6 +39,7 @@ $objGeneral->consultar();
 
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
+    <link href="css/panelFiltro.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -117,7 +118,7 @@ $dataMenu = $objMenu->getSecciones();
     </header>
 <?php
     $objPlantilla = null;
-    if($dataMenu != FALSE){
+    if($dataMenu != FALSE){ // SECCIONES DE LA PAGINA
         $objPlantilla = new Plantillas();
         for($i = 0; $i < count($dataMenu); $i++){
             echo $objPlantilla->getHtmlSeccion($dataMenu[$i]);
@@ -183,6 +184,7 @@ $dataMenu = $objMenu->getSecciones();
 
     <!-- Custom JavaScript de la pagina -->
     <script src="js/custom.js"></script>
+    <script src="js/panelFiltro.js"></script>
 
 </body>
 

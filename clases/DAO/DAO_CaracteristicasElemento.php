@@ -56,7 +56,7 @@ class DAO_CaracteristicasElemento extends DAOGeneral {
     }
 
     function set_tipo_estructura($_tipo_estructura) {
-        $this->_tipo_estructura = $_tipo_estructura;
+        $this->_tipo_estructura = $_tipo_estructura == '' ? null : $_tipo_estructura;
         return $this;
     }
 
@@ -66,7 +66,7 @@ class DAO_CaracteristicasElemento extends DAOGeneral {
     }
 
     function set_material_estructural($_material_estructural) {
-        $this->_material_estructural = $_material_estructural;
+        $this->_material_estructural = $_material_estructural == '' ? null : $_material_estructural;
         return $this;
     }
 
@@ -76,7 +76,7 @@ class DAO_CaracteristicasElemento extends DAOGeneral {
     }
 
     function set_uso_estructura($_uso_estructura) {
-        $this->_uso_estructura = $_uso_estructura;
+        $this->_uso_estructura = $_uso_estructura == '' ? null : $_uso_estructura;
         return $this;
     }
 
@@ -86,7 +86,7 @@ class DAO_CaracteristicasElemento extends DAOGeneral {
     }
 
     function set_tipo_estudio($_tipo_estudio) {
-        $this->_tipo_estudio = $_tipo_estudio;
+        $this->_tipo_estudio = $_tipo_estudio == '' ? null : $_tipo_estudio;
         return $this;
     }
 
@@ -96,7 +96,7 @@ class DAO_CaracteristicasElemento extends DAOGeneral {
     }
 
     function set_sistema_estructural($_sistema_estructural) {
-        $this->_sistema_estructural = $_sistema_estructural;
+        $this->_sistema_estructural = $_sistema_estructural == '' ? null : $_sistema_estructural;
         return $this;
     }
     function get_estado() {

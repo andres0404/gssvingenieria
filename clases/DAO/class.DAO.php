@@ -134,7 +134,6 @@ class DAOGeneral {
         }else{
             $query = "insert into ".$this->_tabla." set ".  implode(",", $set) ;
         }
-        
         if($id = $con->ejecutar($query)){
             if(empty($this->{'_'.$this->_primario})){
                 $this->{'_'.$this->_primario} = $con->getInsertId();
@@ -145,7 +144,7 @@ class DAOGeneral {
     }
     /**
      * 
-     * @return boolean|DAOGeneral
+     * @return boolean|array
      * @opciones array Agregar opciones para hacer un join
      */
     public function consultar($opciones = []) {
