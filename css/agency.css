@@ -62,6 +62,7 @@ h6 {
 
 .bg-light-gray {
     background-color: #f7f7f7;
+    background-image: none;
 }
 
 .bg-darkest-gray {
@@ -265,7 +266,7 @@ header {
     text-align: center;
     color: #fff;
     background-attachment: scroll;
-    background-image: url(../img/header-bg.jpg);
+    background-image: url(../img/header-bg-1.jpg);
     background-position: center center;
     background-repeat: none;
     -webkit-background-size: cover;
@@ -324,6 +325,7 @@ header .intro-text .intro-heading {
 
 section {
     padding: 100px 0;
+    background-image: url(../img/mosaico-bg-2.png);
 }
 
 section h2.section-heading {
@@ -344,6 +346,7 @@ section h3.section-subheading {
 @media(min-width:768px) {
     section {
         padding: 110px 0;
+        background-image: url(../img/mosaico-bg-2.png);
     }
 }
 

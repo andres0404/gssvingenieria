@@ -40,7 +40,7 @@
 }
 
 .filtro-grupo {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
 }
 
 .filtro-grupo h5 {
@@ -132,12 +132,12 @@
 }
 
 .portfolio-item.resaltado {
-    border-color: #007bff;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    border-color: #222;
+    box-shadow: 0 0 10px rgba(0, 43, 88, 0.3);
 }
 
 .contador-resultados {
-    background: #28a745;
+    background: #71f891;
     color: white;
     padding: 5px 10px;
     border-radius: 15px;

@@ -27,33 +27,33 @@ class PanelFiltro {
                                 
                                 <!-- Filtros por Listas Maestras -->
                                 <div class="filtro-grupo filtro-item">
-                                    <h5><i class="fa fa-list"></i> Tipo de Estructura</h5>
+                                    <h5><i class="fa fa-cubes"></i> Tipo de Estructura</h5>
                                     '.FormInput::campoSeleccion('tipoEstructura','',MTablas::getTablaCheckBox(2)).'
                                 </div>
                                 
                                 <div class="filtro-grupo filtro-item">
-                                    <h5><i class="fa fa-list"></i> Material Estructural</h5>
+                                    <h5><i class="fa fa-cogs"></i> Material Estructural</h5>
                                     '.FormInput::campoSeleccion('materialEstructural','',MTablas::getTablaCheckBox(3)).'
                                 </div>
                                 
                                 <div class="filtro-grupo filtro-item">
-                                    <h5><i class="fa fa-list"></i> Uso Estructural</h5>
+                                    <h5><i class="fa fa-home"></i> Uso Estructural</h5>
                                     '.FormInput::campoSeleccion('usoEstructura','',MTablas::getTablaCheckBox(4)).'
                                 </div>
 
                                 <div class="filtro-grupo filtro-item">
-                                    <h5><i class="fa fa-list"></i> Tipo de Estudio</h5>
+                                    <h5><i class="fa fa-flask"></i> Tipo de Estudio</h5>
                                     '.FormInput::campoSeleccion('tipoEstudio','',MTablas::getTablaCheckBox(5)).'
                                 </div>
                                 
                                 <div class="filtro-grupo filtro-item">
-                                    <h5><i class="fa fa-list"></i> Sistema Estructural</h5>
+                                    <h5><i class="fa fa-sitemap"></i> Sistema Estructural</h5>
                                     '.FormInput::campoSeleccion('sistemaEstructural','',MTablas::getTablaCheckBox(6)).'
                                 </div>
 
                                 <!-- Filtro por Nombre del Proyecto -->
                                 <div class="filtro-grupo filtro-item">
-                                    <h5><i class="fa fa-search"></i> Nombre del Proyecto</h5>
+                                    <h5><i class="fa fa-building"></i> Nombre del Proyecto</h5>
                                     <input type="text" class="form-control" id="nombreProyecto" 
                                            placeholder="Buscar por nombre del proyecto...">
                                 </div>
