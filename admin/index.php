@@ -396,7 +396,7 @@ $dataMenu = $objMenu->getSecciones();
                                 //$_objForm->conLabel();
                                 echo $_objForm->obtenerFormulario(!empty($valor) ? $valor : FALSE );
                                 // Panel para introducir nueva caractgeristica al elemento
-                                if($_objSeccion->get_caracteristicas() === 1) {
+                                if($_objSeccion->get_caracteristicas() == 1) {
                                     $toggle_name = 'elemento_carac_nuevo_' . $objE->get_id_elemen();
 ?>
                                 <div class="panel panel-info">
