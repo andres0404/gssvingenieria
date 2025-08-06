@@ -265,8 +265,14 @@ class Elementos {
      * @return type
      */
     private function _getEquipo($arrObj){
-        $arrHtml = array();
+        
+        $col = 3;
+        $countCol = 0;
         for($i = 0; $i < count($arrObj); $i++){
+            if($countCol == 3){
+                $arrHtml[] = "</div><div class='row'>";
+                $countCol = 0;
+            }
             $objEl = new DAO_ElemenContacto();
             $objEl->set_id_elem($arrObj[$i]->get_id_elemen());
             $objEl->consultar();
@@ -300,6 +306,7 @@ class Elementos {
                         </ul>
                     </div>
                 </div>';
+            $countCol++;
         }
         return implode("\n", $arrHtml); 
     }
