@@ -108,7 +108,6 @@ class GenerarFormulario {
                         if(isset($arrPath[1])){
                             $_objImg->setFolder($arrPath[1]);
                             $listaImg = $_objImg->getListaArchivos(true);
-                            //print_r($listaImg);
                             $html .= $multi_select ? 
                                 FormInput::campoMultiSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '')
                                 : FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : ''); 
@@ -121,8 +120,7 @@ class GenerarFormulario {
                     $arrPath = explode("/",$this->_objDAO->get_img_path());
                     if(isset($arrPath[1])){
                         $_objImg->setFolder($arrPath[1]);
-                        $listaImg = $_objImg->getListaArchivos(true);
-                        //print_r($listaImg);
+                        $listaImg = $_objImg->getListaArchivos(true); 
                         $html .= $multi_select ?
                             FormInput::campoMultiSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '')
                             : FormInput::campoSeleccion($form.$separador.$campo, isset($arrAtributo['label']) ? $arrAtributo['label'] : $campo, $listaImg,$this->_objDAO->{'get_'.$campo}(),isset($arrAtributo['ayuda']) ? $arrAtributo['ayuda'] : '');

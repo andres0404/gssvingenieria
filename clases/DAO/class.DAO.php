@@ -20,6 +20,7 @@ class DAOGeneral {
     private $_es_paginado = false;
     protected $_paginado_vars;
     protected $_joins_result_collection = [];
+    protected $_query = '';
 
     public function __construct() {
        
@@ -187,6 +188,7 @@ class DAOGeneral {
             $query .= (" LIMIT " . implode(",", $this->_limit));
         }
         $con = ConexionSQL::getInstance();
+        $this->_query = $query;
         $id = $con->consultar($query);
         
         if($res = $con->obtenerFila($id)){
@@ -230,9 +232,9 @@ class DAOGeneral {
             switch($arrAtributos['tipodato']){
                 case 'lista-multiple-imagen':
                     if($usaAs){
-                        $obj->{'set_'.$nom_campo}(json_decode($res[$obj->getTabla()."_$nom_campo"] === null ?? ""));
+                        $obj->{'set_'.$nom_campo}(json_decode($res[$obj->getTabla()."_$nom_campo"] ?? ""));
                     } else {
-                        $obj->{'set_'.$nom_campo}(json_decode($res["$nom_campo"] === null ?? ""));
+                        $obj->{'set_'.$nom_campo}(json_decode($res["$nom_campo"] ?? ""));
                     }
                     break;
                 default:
