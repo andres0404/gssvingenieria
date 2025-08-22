@@ -19,6 +19,7 @@ $objGeneral->consultar();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo $objGeneral->get_desc_pagina(); ?>">
     <meta name="author" content="<?php echo $objGeneral->get_tit_pagina();?>">
+    <link rel="canonical" href="https://www.gssvingenieria.com/">
     
     <meta property="og:url"           content="https://www.gssvingenieria.com/" />
 <meta property="og:type"               content="business.business" />
