@@ -148,7 +148,7 @@ $dataMenu = $objMenu->getSecciones();
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
-                        <li><a href="#">Politica de privacidad</a>
+                        <li><a href="/pprivacidad.html">Politica de privacidad</a>
                         </li>
                         <li>Desarrollado por: <a href="https://www.linkedin.com/in/andres-silva-vega-silva-b48016a6/" target="_blank" title="Andres Silva: Ingeniero de Software">Andres Silva<span class="fa fa-linkedin-square fa-stack "></span></a>
                         </li>
